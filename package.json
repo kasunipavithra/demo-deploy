@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --aot -prod"
   },
   "private": true,
   "dependencies": {
@@ -22,12 +23,15 @@
     "@angular/router": "^6.1.0",
     "core-js": "^2.5.4",
     "rxjs": "~6.2.0",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.8.26",
+    "@angular/cli": "^6.2.5",
+    "@angular/compiler-cli": "^6.1.10",
+    "typescript": "~2.9.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.0",
-    "@angular/cli": "~6.2.5",
-    "@angular/compiler-cli": "^6.1.0",
+    "@angular/cli": "^6.2.5",
+    "@angular/compiler-cli": "^6.1.10",
     "@angular/language-service": "^6.1.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
@@ -44,5 +48,10 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~2.9.2"
+  },
+  "engines": {
+    "node": "8.11.3",
+    "npm": "5.6.0"
   }
+
 }
