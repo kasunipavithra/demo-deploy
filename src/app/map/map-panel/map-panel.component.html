@@ -1,0 +1,12 @@
+<h1>Map panel heading</h1>
+
+	<label class="col col-form-label">{{markers?.length}} Markers</label>
+
+
+
+<div leaflet style="height: 300px;"
+class="map"
+(leafletMapReady)="onMapReady($event)"
+			 [leafletOptions]="options"
+			 [leafletLayers]="markers">
+</div>
