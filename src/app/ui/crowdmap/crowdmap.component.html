@@ -1,0 +1,12 @@
+<div class="card">
+    <h5 class="card-title wc-dark-gray p-2">Crowd Map</h5>
+    <div class="card-body">
+      
+      <div leaflet style="height: 300px;"
+        class="map"
+        (leafletMapReady)="onMapReady($event)"
+               [leafletOptions]="options"
+               [leafletLayers]="markers">
+        </div>
+    </div>
+  </div>

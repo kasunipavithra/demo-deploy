@@ -4,17 +4,22 @@ import { MapModule } from './map/map.module';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AppRoutingModule } from "./app.routing";
+import { LoginComponent } from './login/login.component';
+import { UiModule } from './ui/ui.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     MapModule,
-    AppRoutingModule
+    AppRoutingModule,
+    UiModule
   ],
+
   providers: [],
   bootstrap: [AppComponent]
 })
