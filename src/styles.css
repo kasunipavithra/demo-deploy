@@ -1,3 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
+
+/*colors*/
+
+.wc-dark-gray{
+    background-color: #022140;
+    color: white;
+}
+
+.wc-light-gray{
+    background-color:#265077;
+    color: white;
+}
+
+.wc-tab-purple{
+    background-color: #494B68;
+    color: white;
+}
+
+.wc-tab-blu-green{
+    background-color: #1E4258;
+    color: white;
+}
+
+.wc-tab-green{
+    background-color: #2D5F5D;
+    color: white;
+}
+
