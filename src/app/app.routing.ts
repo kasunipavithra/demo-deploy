@@ -4,7 +4,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { MapPanelComponent } from './map/map-panel/map-panel.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardLayoutComponent } from '././ui/dashboard-layout/dashboard-layout.component';
-
+import {  DbDemoComponent } from "./db-demo/db-demo.component";
 
 const routes: Routes = [
   {
@@ -22,6 +22,12 @@ const routes: Routes = [
     component: DashboardLayoutComponent
   },
 
+  {
+    path: 'dbdemo',
+    component:  DbDemoComponent
+  },
+
+ 
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
