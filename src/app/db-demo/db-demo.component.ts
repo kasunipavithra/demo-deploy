@@ -9,12 +9,10 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 export class DbDemoComponent implements OnInit {
 
-  
+
 
   ngOnInit() {
   }
-
-
   title = 'JavaSampleApproach';
   description = 'Angular-Firebase Demo';
  
