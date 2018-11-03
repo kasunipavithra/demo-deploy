@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+
 
   ngOnInit() {
   }
 
+  title = 'JavaSampleApproach';
+  description = 'Angular-Firebase Demo';
+ 
+  itemValue = '';
+  items: Observable<any[]>;
+ 
+  constructor(public db: AngularFireDatabase) {
+    this.items = db.list('items').valueChanges();
+  }
+ 
+  onSubmit() {
+    this.db.list('/items').push({ content: this.itemValue });
+    this.itemValue = '';
+  }
 }
