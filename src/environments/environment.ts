@@ -1,9 +1,16 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
 export const environment = {
-  production: false
+  production: true,
+  firebase: {
+    apiKey: "AIzaSyDePgE4Aukkudml0eATcZUlEwdHrYeSrYk",
+    authDomain: "watercrowddbnew.firebaseapp.com",
+    databaseURL: "https://watercrowddbnew.firebaseio.com",
+    projectId: "watercrowddbnew",
+    storageBucket: "watercrowddbnew.appspot.com",
+    messagingSenderId: "222443283772"
+  }
 };
 
 /*
