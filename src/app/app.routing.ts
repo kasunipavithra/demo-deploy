@@ -6,7 +6,6 @@ import { LoginComponent } from './login/login.component';
 import { DashboardLayoutComponent } from '././ui/dashboard-layout/dashboard-layout.component';
 
 
-
 const routes: Routes = [
   {
     path: '',
@@ -21,7 +20,8 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardLayoutComponent
-  }
+  },
+
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
