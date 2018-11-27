@@ -11,13 +11,37 @@ import { BannerComponent } from './banner/banner.component';
 import { CrowdmapComponent } from './crowdmap/crowdmap.component';
 import { PostsComponent } from './posts/posts.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { NewpostComponent } from './newpost/newpost.component';
+import { AppRoutingModule } from "../app.routing";
+import { DropPinComponent } from './drop-pin/drop-pin.component';
 
+
+//service imports
+import { NewPostService } from '../services/new-post.service';
 
 @NgModule({
   imports: [
     CommonModule,
     LeafletModule.forRoot(),
+    AppRoutingModule
   ],
-  declarations: [DashboardLayoutComponent, SidenavComponent, SearchBarComponent, ResultPanelComponent, SearchTimeComponent, SearchLocationComponent, SearchTagComponent, BannerComponent, CrowdmapComponent, PostsComponent]
+  declarations: [DashboardLayoutComponent,
+    SidenavComponent,
+    SearchBarComponent,
+    ResultPanelComponent,
+    SearchTimeComponent, 
+    SearchLocationComponent,
+    SearchTagComponent,
+    BannerComponent, 
+    CrowdmapComponent,
+    PostsComponent,
+    NewpostComponent, 
+    DropPinComponent
+  ],
+
+
+    providers: [
+      NewPostService
+    ]
 })
 export class UiModule { }
