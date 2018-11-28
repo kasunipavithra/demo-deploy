@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from '../../models/post';
 import { NewPostService } from '../../services/new-post.service';
+
  
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
@@ -23,25 +24,26 @@ export class DemopostComponent implements OnInit {
   ) {}
  
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.customerService.getCustomer(id)
-      .subscribe(customer => this.customer = customer);
+    
   }
  
-  update(): void {
-    this.submitted = true;
-    this.customerService.updateCustomer(this.customer)
-        .subscribe(() => this.message = "Customer Updated Successfully!");
+  newCustomer(): void {
+    this.submitted = false;
+    this.customer = new Post();
   }
  
-  delete(): void {
-    this.submitted = true;
-    this.customerService.deleteCustomer(this.customer.id)
-        .subscribe(()=> this.message = "Customer Deleted Successfully!");
-  }
+ addCustomer() {
+   this.submitted = true;
+   this.save();
+ }
  
   goBack(): void {
     this.location.back();
+  }
+ 
+  private save(): void {
+    this.customerService.addCustomer(this.customer)
+        .subscribe();
   }
 }
 

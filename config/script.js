@@ -1,6 +1,6 @@
 
 var express = require('express');
-//var mysql = require('mysql');
+var mysql = require('mysql');
 var app = express();
 const bodyParser = require('body-parser');
 
@@ -34,10 +34,10 @@ connection.connect(function(error){
 /************wamp connection ends */
 
 
-/*****************mamp connection 
+/*****************mamp connection */
 var connection = mysql.createConnection({
     user : 'root',
-    password: '',
+    password: 'root',
     database: 'test',
     socketPath : '/Applications/MAMP/tmp/mysql/mysql.sock',
     
@@ -104,24 +104,15 @@ app.get('/api/candidates', function(req, res) {
 app.post('/api/customers', function(req, res){
     var postData = req.body;
     console.log("POST Collaborator: "+ postData);
-    /*
-    var sql1 = "SELECT count(*) AS solution from collaborator where employee_id='"+postData.employee_id+"'";
-    connection.query(sql1, function(error, results, fields){
-        if(error){
-            console.log(error);
-        } else {
-            if(results[0].solution<1){
-                var sql = "INSERT INTO collaborator (employee_id) VALUES ('"+postData.employee_id+"')";
+    
+  
+                var sql = "INSERT INTO customers (firstname,lastname,age) VALUES ('"+postData.firstname+"','"+postData.lastname+"',"+postData.age+")";
                 connection.query(sql, function (error, results, fields) {
                 if (error) throw error;
                     res.json(results);
                 });
-            }else{
-                console.log("Duplicate entry");
-            }
-        }
-    });
-    */
+            
+    
 });
 
 
