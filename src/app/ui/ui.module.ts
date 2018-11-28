@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { DashboardLayoutComponent } from './dashboard-layout/dashboard-layout.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
@@ -18,12 +19,14 @@ import { DropPinComponent } from './drop-pin/drop-pin.component';
 
 //service imports
 import { NewPostService } from '../services/new-post.service';
+import { DemopostComponent } from './demopost/demopost.component';
 
 @NgModule({
   imports: [
     CommonModule,
     LeafletModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   declarations: [DashboardLayoutComponent,
     SidenavComponent,
@@ -36,7 +39,7 @@ import { NewPostService } from '../services/new-post.service';
     CrowdmapComponent,
     PostsComponent,
     NewpostComponent, 
-    DropPinComponent
+    DropPinComponent, DemopostComponent
   ],
 
 

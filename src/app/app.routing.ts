@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardLayoutComponent } from '././ui/dashboard-layout/dashboard-layout.component';
 import {  DbDemoComponent } from "./db-demo/db-demo.component";
 import { NewpostComponent } from "././ui/newpost/newpost.component";
+import { DemopostComponent } from "././ui/demopost/demopost.component";
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
   {
     path: 'newpost',
     component:  NewpostComponent
+  },
+
+  {
+    path: 'demopost',
+    component:  DemopostComponent
   }
 
  
