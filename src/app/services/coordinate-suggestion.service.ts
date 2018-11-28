@@ -16,7 +16,7 @@ export class CoordinateSuggestionService {
   constructor(private _http: Http) { }
  
   // Get list of categories from database via api.
-  readCategories(searchString: string): Observable<any>{
+  getSuggestions(searchString: string): Observable<any>{
       return this._http
           .get(this.url+searchString)
           .pipe(map((res: Response) => res.json()));
