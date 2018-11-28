@@ -3,7 +3,13 @@ var express = require('express');
 var mysql = require('mysql');
 var app = express();
 const bodyParser = require('body-parser');
+var Nominatim = require('nominatim-geocoder');
+//var geocoder = new Nominatim();
 
+const geocoder = new Nominatim({}, {
+    format: 'json',
+    limit: 3,
+  })
 
 
 
@@ -34,7 +40,7 @@ connection.connect(function(error){
 /************wamp connection ends */
 
 
-/*****************mamp connection */
+/*****************mamp connection 
 var connection = mysql.createConnection({
     user : 'root',
     password: 'root',
@@ -114,6 +120,31 @@ app.post('/api/customers', function(req, res){
             
     
 });
+
+
+
+
+
+  //converting address to coordinates
+  app.get('/api/coordinate_suggestion/:searchString', function(req, res) {
+    
+    var searchString = req.params['searchString'];
+    console.log("searchString"+searchString);
+    geocoder.search( { q: searchString } )
+    .then((response) => {
+        console.log('Successful retrived suggestions');
+        console.log(response)
+        res.json(response)
+    })
+    .catch((error) => {
+        console.log(error)
+    });
+
+
+})
+
+
+
 
 
     
