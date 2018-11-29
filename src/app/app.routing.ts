@@ -20,7 +20,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'dashboard',
+    path: 'dashboard/:name/:mail',
     component: DashboardLayoutComponent
   },
 

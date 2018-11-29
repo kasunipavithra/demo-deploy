@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoggedUserService } from '../../services/logged-user.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
 
-  constructor() { }
+  logged_user_name:string;
+  logged_user_mail:string;
+
+  constructor(private loggedUserService:LoggedUserService) { }
 
   ngOnInit() {
+    this.logged_user_name = this.loggedUserService.logged_user_name;
+    this.logged_user_mail = this.loggedUserService.logged_user_mail;
+    
   }
 
 

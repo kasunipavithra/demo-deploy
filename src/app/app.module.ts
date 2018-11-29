@@ -16,6 +16,35 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 import { DbDemoComponent } from './db-demo/db-demo.component';
 
+import { LoggedUserService } from './services/logged-user.service';
+
+
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+ // FacebookLoginProvider,
+} from "angular-6-social-login";
+
+ 
+// Configs 
+
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig(
+      [
+      
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider("398384863458-du8dhdggudm5qebjhs26d949jb780pu3.apps.googleusercontent.com")
+        },
+          
+    ]
+  )
+  return config;
+}
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,10 +60,17 @@ import { DbDemoComponent } from './db-demo/db-demo.component';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule, // for database
-    HttpClientModule
+    HttpClientModule,
+    SocialLoginModule
   ],
 
-  providers: [],
+  providers: [{
+    provide: AuthServiceConfig,
+    useFactory: getAuthServiceConfigs
+  },
+  LoggedUserService,
+
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
