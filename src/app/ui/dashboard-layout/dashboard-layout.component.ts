@@ -13,6 +13,7 @@ export class DashboardLayoutComponent implements OnInit {
 
   name:any;
   mail:any;
+  image:any;
   constructor(  private route: ActivatedRoute,
     private router:Router,
     private loggedUserService:LoggedUserService) { }
@@ -20,7 +21,8 @@ export class DashboardLayoutComponent implements OnInit {
   ngOnInit() {
     this.name = this.route.snapshot.paramMap.get('name');
     this.mail = this.route.snapshot.paramMap.get('mail');
-    this.loggedUserService.setUserDetails(this.name, this.mail);
+    this.image = this.route.snapshot.paramMap.get('image');
+    this.loggedUserService.setUserDetails(this.name, this.mail, this.image);
   }
 
 }

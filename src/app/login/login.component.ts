@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
         console.log(socialPlatform+" sign in data : " , userData);
         // Now sign-in with userData
         // ...
-        this.router.navigate(['/dashboard', userData.name, userData.email  ]);
+        this.router.navigate(['/dashboard', userData.name, userData.email, userData.image  ]);
             
       }
     );

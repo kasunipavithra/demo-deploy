@@ -10,12 +10,14 @@ export class SidenavComponent implements OnInit {
 
   logged_user_name:string;
   logged_user_mail:string;
+  logged_user_image:any;
 
   constructor(private loggedUserService:LoggedUserService) { }
 
   ngOnInit() {
     this.logged_user_name = this.loggedUserService.logged_user_name;
     this.logged_user_mail = this.loggedUserService.logged_user_mail;
+    this.logged_user_image = this.loggedUserService.image;
     
   }
 
