@@ -17,7 +17,7 @@ import { environment } from '../environments/environment';
 import { DbDemoComponent } from './db-demo/db-demo.component';
 
 import { LoggedUserService } from './services/logged-user.service';
-
+import { CoordinateSuggestionService } from './services/coordinate-suggestion.service';
 
 import {
   SocialLoginModule,
@@ -69,6 +69,7 @@ export function getAuthServiceConfigs() {
     useFactory: getAuthServiceConfigs
   },
   LoggedUserService,
+  CoordinateSuggestionService
 
 ],
   bootstrap: [AppComponent]

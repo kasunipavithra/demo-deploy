@@ -4,11 +4,13 @@ var mysql = require('mysql');
 var app = express();
 const bodyParser = require('body-parser');
 var Nominatim = require('nominatim-geocoder');
+const Geo = require('open-street-map-reverse-geo-node-client')
+
 //var geocoder = new Nominatim();
 
 const geocoder = new Nominatim({}, {
     format: 'json',
-    limit: 3,
+    limit: 5,
   })
 
 
@@ -140,8 +142,31 @@ app.post('/api/customers', function(req, res){
         console.log(error)
     });
 
+})
+
+
+//converting coordinates to address
+
+
+
+var geocoding =  require('reverse-geocoding');
+
+ //converting address to coordinates
+ app.get('/api/location_suggestion/:lat/:lng', function(req, res) {
+
+    var lat = req.params['lat'];
+    var lng = req.params['lng'];
+    const reverse = new Geo.ReverseGeocoder()
+
+    reverse.getReverse(lat, lng)
+        .then((location)=>{console.log(location)
+            res.json(location)
+        })
+        .catch(err=>{console.error(err)})
 
 })
+
+
 
 
 

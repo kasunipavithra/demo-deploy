@@ -11,6 +11,8 @@ import { catchError } from 'rxjs/operators';
 export class CoordinateSuggestionService {
 
   url = "http://localhost:3000/api/coordinate_suggestion/";
+  url2 = "http://localhost:3000/api/location_suggestion/";
+  
 
   // We need Http to talk to a remote server.
   constructor(private _http: Http) { }
@@ -21,4 +23,10 @@ export class CoordinateSuggestionService {
           .get(this.url+searchString)
           .pipe(map((res: Response) => res.json()));
   }
+
+  getLocation(lat:number,lng:number): Observable<any>{
+    return this._http
+        .get(this.url2+lat+"/"+lng)
+        .pipe(map((res: Response) => res.json()));
+}
 }
