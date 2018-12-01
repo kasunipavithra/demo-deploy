@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
@@ -15,7 +15,7 @@ export class CoordinateSuggestionService {
   
 
   // We need Http to talk to a remote server.
-  constructor(private _http: Http) { }
+  constructor(private _http: HttpClient ) { }
  
   // Get list of categories from database via api.
   getSuggestions(searchString: string): Observable<any>{
@@ -26,7 +26,6 @@ export class CoordinateSuggestionService {
 
   getLocation(lat:number,lng:number): Observable<any>{
     return this._http
-        .get(this.url2+lat+"/"+lng)
-        .pipe(map((res: Response) => res.json()));
+        .get(this.url2+lat+"/"+lng);
 }
 }

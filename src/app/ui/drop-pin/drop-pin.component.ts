@@ -2,7 +2,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { latLng, tileLayer,Map, Layer, marker,icon } from 'leaflet';
 import { NewPostService } from '../../services/new-post.service';
-
+import { CoordinateSuggestionService } from '../../services/coordinate-suggestion.service';
 
 @Component({
   selector: 'app-drop-pin',
@@ -14,12 +14,14 @@ export class DropPinComponent implements OnInit {
   lat;//clicked location
   lng;
   geolocationPosition;
-  current_lat=7.315975947329029;
-  current_lng=80.69417958914359;
+  current_lat;
+  current_lng;
   //zoom
   center;
-  location; //retrived from backend for given coordinates
-  locations = [];
+   //retrived from backend for given coordinates
+  locations :any[];
+  location="";
+
   errorMsg: string;
 
   
@@ -37,7 +39,7 @@ options = {
 markers: Layer[] = [];
 
 
-constructor(private zone: NgZone, private newPostService:NewPostService ) { }
+constructor(private zone: NgZone, private newPostService:NewPostService, private coordinateSuggestionService:CoordinateSuggestionService ) { }
 
 fitBounds: any = null;
 
@@ -50,8 +52,10 @@ ngOnInit() {
             this.current_lat = position.coords.latitude;
             this.current_lng = position.coords.longitude;
             this.addMarker(this.current_lat,this.current_lng);
+            this.getLocation(this.current_lat,this.current_lng);
+           
             this.center =latLng(this.current_lat, this.current_lng);
-                console.log(position.coords.latitude)
+                console.log(position.coords.latitude);
         },
         error => {
             switch (error.code) {
@@ -68,6 +72,9 @@ ngOnInit() {
         }
     );
 };
+
+
+
 }
 
 onMapReady(map: Map) {
@@ -80,6 +87,7 @@ onMapReady(map: Map) {
       //run click event on zone 
     	this.zone.run(() => {
         this.fitBounds = this.addMarker(e.latlng.lat,e.latlng.lng);
+        this.getLocation(this.lat,this.lng);
       });
     
     });
@@ -88,6 +96,7 @@ onMapReady(map: Map) {
 
 
 addMarker(latitude:number,longitude:number) {
+  this.markers.pop();
   const newMarker = marker(
     [latitude,longitude],
     {
@@ -108,5 +117,24 @@ removeMarker() {
 }
 
 
+
+
+
+getLocation(lat:number,lng:number) {
+  console.log("from drop pin ts lat"+lat+"lon"+lng)
+  return this.coordinateSuggestionService.getLocation(lat,lng)
+             .subscribe(
+               customers => {
+                console.log(customers);
+                this.locations = customers
+                this.location = customers.displayName;
+               }
+              );
+}
+
+//get the coordinates of a given string
+getCoordinates(){
+  
+}
 
 }

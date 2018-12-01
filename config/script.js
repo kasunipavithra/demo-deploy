@@ -156,6 +156,7 @@ var geocoding =  require('reverse-geocoding');
 
     var lat = req.params['lat'];
     var lng = req.params['lng'];
+    console.log("from drop pin ts lat"+lat+"lon"+lng);
     const reverse = new Geo.ReverseGeocoder()
 
     reverse.getReverse(lat, lng)
