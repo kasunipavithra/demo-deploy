@@ -12,6 +12,7 @@ export class CoordinateSuggestionService {
 
   url = "http://localhost:3000/api/coordinate_suggestion/";
   url2 = "http://localhost:3000/api/location_suggestion/";
+  urlTag = "http://localhost:3000/api/alltags";
   
 
   // We need Http to talk to a remote server.
@@ -20,12 +21,16 @@ export class CoordinateSuggestionService {
   // Get list of categories from database via api.
   getSuggestions(searchString: string): Observable<any>{
       return this._http
-          .get(this.url+searchString)
-          .pipe(map((res: Response) => res.json()));
+          .get(this.url+searchString);
   }
 
   getLocation(lat:number,lng:number): Observable<any>{
     return this._http
         .get(this.url2+lat+"/"+lng);
+}
+
+getAllTags(): Observable<any>{
+  return this._http
+      .get(this.urlTag);
 }
 }

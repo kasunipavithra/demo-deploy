@@ -3,6 +3,8 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { latLng, tileLayer,Map, Layer, marker,icon } from 'leaflet';
 import { NewPostService } from '../../services/new-post.service';
 import { CoordinateSuggestionService } from '../../services/coordinate-suggestion.service';
+import { Post } from '../../models/post';
+import { LoggedUserService } from '../../services/logged-user.service';
 
 @Component({
   selector: 'app-drop-pin',
@@ -21,8 +23,17 @@ export class DropPinComponent implements OnInit {
    //retrived from backend for given coordinates
   locations :any[];
   location="";
-
+  searchstring:string;
   errorMsg: string;
+  post = new Post();
+  massage;
+
+  //values to be saved
+
+  title:string;
+  description:string;
+  tags:string[];
+  address:string;
 
   
  // Open Street Map definitions
@@ -39,18 +50,21 @@ options = {
 markers: Layer[] = [];
 
 
-constructor(private zone: NgZone, private newPostService:NewPostService, private coordinateSuggestionService:CoordinateSuggestionService ) { }
+constructor(private zone: NgZone, private newPostService:NewPostService, private coordinateSuggestionService:CoordinateSuggestionService,private loggedUserService:LoggedUserService ) { }
 
 fitBounds: any = null;
 
 ngOnInit() {
   //alert(this.newPostService.test);
+  this.getAllTags();
   if (window.navigator && window.navigator.geolocation) {
     window.navigator.geolocation.getCurrentPosition(
         position => {
             this.geolocationPosition = position,
             this.current_lat = position.coords.latitude;
             this.current_lng = position.coords.longitude;
+            this.lat = this.current_lat;
+            this.lng = this.current_lng;
             this.addMarker(this.current_lat,this.current_lng);
             this.getLocation(this.current_lat,this.current_lng);
            
@@ -127,14 +141,86 @@ getLocation(lat:number,lng:number) {
                customers => {
                 console.log(customers);
                 this.locations = customers
-                this.location = customers.displayName;
+                var name = customers.displayName;
+                var namearr = name.split(",");
+                this.location = namearr[0];
                }
               );
 }
 
-//get the coordinates of a given string
+//get the suggested coordinates of a given string
 getCoordinates(){
-  
+  alert(this.searchstring);
+  return this.coordinateSuggestionService.getSuggestions(this.searchstring)
+  .subscribe(
+    customers => {
+      console.log(customers);
+      this.data = customers
+      
+    }
+    );
+
 }
+
+//drop down
+selectedLevel;
+data;
+
+  selected(){
+    alert("lat:"+this.selectedLevel.lat+"lon"+ this.selectedLevel.lon);
+    this.center =latLng(this.selectedLevel.lat,this.selectedLevel.lon);
+    this.addMarker(this.selectedLevel.lat,this.selectedLevel.lon);
+    this.getLocation(this.selectedLevel.lat,this.selectedLevel.lon);
+
+  }
+
+
+  //saving post to db
+
+  addPost(){
+
+    this.post.title = this.title;
+    this.post.description = this.description;
+    //this.post.tag = this.tags;
+    this.post.address= this.location;
+    alert(this.post.address);
+    this.post.lat = this.current_lat;
+    this.post.lng = this.current_lng;
+    this.post.email = this.loggedUserService.logged_user_mail;
+
+    return this.newPostService.addPost(this.post)
+             .subscribe(
+               customers => {
+                console.log(customers);
+                this.massage = customers  
+               }
+              );
+  }
+
+  
+
+
+  //Tags dropdown
+
+  //drop down
+selectedTag;
+tagData;
+
+getAllTags(){
+    
+  return this.coordinateSuggestionService.getAllTags()
+  .subscribe(
+    tags => {
+      console.log(tags);
+      this.tagData = tags
+      
+    }
+    );
+  }
+
+  tagIsSelected(){
+   // alert(""+this.selectedTag.text);
+    this.tags.push(this.selectedTag.text);
+  }
 
 }

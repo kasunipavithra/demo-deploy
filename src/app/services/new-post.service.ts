@@ -14,13 +14,13 @@ export class NewPostService {
 
 
 
-  test = "blabla";
+ // test = "blabla";
 
-  private customersUrl = 'http://localhost:3000/api/customers';  // URL to web api
+  private customersUrl = 'http://localhost:3000/api/addpost';  // URL to web api
   constructor( 
     private http: HttpClient
   ) { }
- 
+ /*
   getCustomers (): Observable<Post[]> {
     return this.http.get<Post[]>(this.customersUrl)
   }
@@ -29,12 +29,12 @@ export class NewPostService {
     const url = `${this.customersUrl}/${id}`;
     return this.http.get<Post>(url);
   }
- 
-  addCustomer (customer: Post): Observable<Post> {
-    return this.http.post<Post>(this.customersUrl, customer, httpOptions);
+*/
+  addPost (post: Post): Observable<Post> {
+    return this.http.post<Post>(this.customersUrl, post, httpOptions);
   }
  
-  deleteCustomer (customer: Post | number): Observable<Post> {
+ /* deleteCustomer (customer: Post | number): Observable<Post> {
     const id = typeof customer === 'number' ? customer : customer.id;
     const url = `${this.customersUrl}/${id}`;
  
@@ -44,4 +44,5 @@ export class NewPostService {
   updateCustomer (customer: Post): Observable<any> {
     return this.http.put(this.customersUrl, customer, httpOptions);
   }
+*/
 }

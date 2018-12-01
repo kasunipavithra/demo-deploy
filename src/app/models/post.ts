@@ -1,6 +1,10 @@
 export class Post {
-    id: number;
-    firstname: string;
-    lastname: string;
-    age: number;
+    title: string;
+    description: string;
+    address:string;
+    tag: string[];
+    lat:number;
+    lng:number;
+    email:string;
 }
+

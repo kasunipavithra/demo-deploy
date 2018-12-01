@@ -42,7 +42,7 @@ export class DemopostComponent implements OnInit {
   }
  
   private save(): void {
-    this.customerService.addCustomer(this.customer)
+    this.customerService.addPost(this.customer)
         .subscribe();
   }
 }

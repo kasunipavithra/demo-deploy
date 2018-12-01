@@ -17,7 +17,7 @@ const geocoder = new Nominatim({}, {
 
 
 
-/************wamp connection
+/************wamp connection*/
 var connection = mysql.createConnection({
     // host: 'localhost',
     // user: 'root',
@@ -111,7 +111,7 @@ app.get('/api/candidates', function(req, res) {
 
 app.post('/api/customers', function(req, res){
     var postData = req.body;
-    console.log("POST Collaborator: "+ postData);
+    
     
   
                 var sql = "INSERT INTO customers (firstname,lastname,age) VALUES ('"+postData.firstname+"','"+postData.lastname+"',"+postData.age+")";
@@ -121,6 +121,51 @@ app.post('/api/customers', function(req, res){
                 });
             
     
+});
+
+
+
+app.post('/api/saveuser', function(req, res){
+    var postData = req.body;
+    
+    console.log("POST Collaborator: "+ postData.picture+"");
+    var mystr = postData.picture+"";
+  
+                var sql = "INSERT IGNORE INTO user (name,email,picture) VALUES ('"+postData.name+"','"+postData.email+"','"+mystr+"')";
+                connection.query(sql, function (error, results, fields) {
+                if (error) throw error;
+                    res.json(results);
+                });
+            
+    
+});
+
+//read all tags
+
+app.get('/api/alltags', function(req, res) {
+    connection.query("SELECT * from tag", function(error, rows, fields){
+        if(!!error){
+            console.log(error);
+        } else {
+            console.log('Successful query');
+            res.json(rows);
+        }
+    });
+})
+
+
+
+app.post('/api/addpost', function(req, res){
+    var postData = req.body;
+    
+    console.log(postData.address);
+  
+                var sql = "INSERT INTO post (title,description,address,lat,lng,email ) VALUES ('"+postData.title+"','"+postData.description+"','"+postData.address+"',"+postData.lat+","+postData.lng+",'"+postData.email+"')";
+                connection.query(sql, function (error, results, fields) {
+                if (error) throw error;
+                    res.json(results);
+                });
+        
 });
 
 
