@@ -6,7 +6,9 @@
 
     <div class="container-fluid p-0">
           <app-banner></app-banner>
-          <app-search-bar></app-search-bar>
+         
+         
+         <!--<app-search-bar></app-search-bar>--> 
       
           <div class="container-fluid">
               <div class="row">
@@ -15,13 +17,83 @@
                         <button type="button" class="btn wc-dark-gray m-3">new post</button>
                        </a>
 
-                     
+                </div>
 
+                <div class="row">
+
+                    <div class="col-mid-4">
+                            <div class="card-body">
+                                    <!--search location-->
+                                    <form (submit)="getCoordinates()">
+
+
+                                        <div class="form-group">
+                                            <label for="exampleFormControlInput1">Search Address</label>
+                                            <input type="text" class="form-control" [(ngModel)]="searchstring" name="searchstring">
+                                        </div>
+                                
+
+                                        <!--Search result dropdown-->
+
+
+                                        <div class="form-group">
+                                            <label for="exampleFormControlInput1">View Results</label>
+                                            <select [(ngModel)]="selectedLevel" name= "selectedLevel" (change)="selectedPoint()" style="width:300px;">
+                                                <option *ngFor="let item of data" [ngValue]="item" style="color:black;">{{item.display_name}}</option>
+                                            </select>
+                                        </div>
+
+                                    <!--Search result dropdown ends-->
+                                    </form>
+                                    <div class="form-group">
+                                            <label for="exampleFormControlInput1">Search radius:km</label>
+                                            <input type="text" class="form-control" [(ngModel)]="radius" name="radius">
+                                    </div>
+                        </div>
+                    </div>
+                    <div class="col-mid-4">sfafdsfsd</div>
+                    <div class="col-mid-4">sfdafdfd</div>
+                        
                 </div>
           
                 <div class="row">
                   <div class="col-md-8">
-                      <app-crowdmap></app-crowdmap>
+                      
+
+
+
+
+                              <div class="card-body">
+                                
+                                <div leaflet style="height: 300px;"
+                                  class="map"
+                                  (leafletMapReady)="onMapReady($event)"
+                                        [leafletOptions]="options"
+                                        [leafletLayers]="markers"
+                                        [(leafletZoom)]="zoom"
+                                         [(leafletCenter)]="center">
+                                  </div>
+      
+      
+                              </div>     
+                      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                   </div>
                   <div class="col-md-4">
                      <app-posts></app-posts>

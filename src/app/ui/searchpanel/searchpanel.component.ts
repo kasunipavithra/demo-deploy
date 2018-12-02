@@ -8,11 +8,11 @@ import { LoggedUserService } from '../../services/logged-user.service';
 import {SelectModule} from 'ng2-select';
 
 @Component({
-  selector: 'app-drop-pin',
-  templateUrl: './drop-pin.component.html',
-  styleUrls: ['./drop-pin.component.css']
+  selector: 'app-searchpanel',
+  templateUrl: './searchpanel.component.html',
+  styleUrls: ['./searchpanel.component.css']
 })
-export class DropPinComponent implements OnInit {
+export class SearchpanelComponent implements OnInit {
 
   lat;//clicked location
   lng;
@@ -112,8 +112,6 @@ onMapReady(map: Map) {
 
 addMarker(latitude:number,longitude:number) {
   this.markers.pop();
-  this.current_lat=latitude;
-  this.current_lng=longitude;
   const newMarker = marker(
     [latitude,longitude],
     {
@@ -220,6 +218,7 @@ data;
 }
 
  
+
 
 
 

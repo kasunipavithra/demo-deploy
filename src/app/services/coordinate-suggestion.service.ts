@@ -33,4 +33,15 @@ getAllTags(): Observable<any>{
   return this._http
       .get(this.urlTag);
 }
+
+//SEARCH QUERIES
+
+//GET POINTS WITHIN GIVEN RADIUS LAT LNG
+urlRadius = "http://localhost:3000/api/pointsradius/";
+getPointsRadius(lat:number,lng:number,radius:number): Observable<any>{
+  return this._http
+      .get(this.urlRadius+lat+"/"+lng+"/"+radius);
+}
+
+
 }

@@ -216,7 +216,23 @@ var geocoding =  require('reverse-geocoding');
 
 
 
+//SEARCH QUERIES
 
+//RADIUS LAT LNG
+app.get('/api/pointsradius/:lat/:lng/:radius', function(req, res) {
 
+    var lat = +req.params['lat'];
+    var lng = +req.params['lng'];
+    var radius = +req.params['radius'];
+
+    console.log("Radius is*********"+radius);
+
+    var sql = " SELECT *, ( 6371 * ACOS( COS( RADIANS( lat ) ) * COS( RADIANS( "+lat+" ) ) * COS( RADIANS( "+lng+" ) - RADIANS( lng ) ) + SIN( RADIANS( lat ) ) * SIN( RADIANS( "+lat+") ) ) ) AS distance FROM post HAVING distance <= "+radius+" ORDER BY distance ASC";
+
+                connection.query(sql, function (error, results, fields) {
+                if (error) throw error;
+                    res.json(results);
+                });
+})
     
 app.listen(3000);

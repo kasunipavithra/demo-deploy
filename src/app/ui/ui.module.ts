@@ -21,6 +21,8 @@ import { DropPinComponent } from './drop-pin/drop-pin.component';
 //service imports
 import { NewPostService } from '../services/new-post.service';
 import { DemopostComponent } from './demopost/demopost.component';
+import { SearchPanelLayoutComponent } from './search-panel-layout/search-panel-layout.component';
+import { SearchpanelComponent } from './searchpanel/searchpanel.component';
 
 
 @NgModule({
@@ -42,7 +44,7 @@ import { DemopostComponent } from './demopost/demopost.component';
     CrowdmapComponent,
     PostsComponent,
     NewpostComponent, 
-    DropPinComponent, DemopostComponent
+    DropPinComponent, DemopostComponent, SearchPanelLayoutComponent, SearchpanelComponent
   ],
 
 
