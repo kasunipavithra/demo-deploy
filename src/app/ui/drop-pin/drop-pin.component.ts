@@ -5,6 +5,7 @@ import { NewPostService } from '../../services/new-post.service';
 import { CoordinateSuggestionService } from '../../services/coordinate-suggestion.service';
 import { Post } from '../../models/post';
 import { LoggedUserService } from '../../services/logged-user.service';
+import {SelectModule} from 'ng2-select';
 
 @Component({
   selector: 'app-drop-pin',
@@ -32,7 +33,7 @@ export class DropPinComponent implements OnInit {
 
   title:string;
   description:string;
-  tags:string[];
+  tags:string;
   address:string;
 
   
@@ -56,7 +57,7 @@ fitBounds: any = null;
 
 ngOnInit() {
   //alert(this.newPostService.test);
-  this.getAllTags();
+  
   if (window.navigator && window.navigator.geolocation) {
     window.navigator.geolocation.getCurrentPosition(
         position => {
@@ -143,14 +144,14 @@ getLocation(lat:number,lng:number) {
                 this.locations = customers
                 var name = customers.displayName;
                 var namearr = name.split(",");
-                this.location = namearr[0];
+                this.location = namearr[0]+","+namearr[2]+","+namearr[3];
                }
               );
 }
 
 //get the suggested coordinates of a given string
 getCoordinates(){
-  alert(this.searchstring);
+  //alert(this.searchstring);
   return this.coordinateSuggestionService.getSuggestions(this.searchstring)
   .subscribe(
     customers => {
@@ -166,8 +167,8 @@ getCoordinates(){
 selectedLevel;
 data;
 
-  selected(){
-    alert("lat:"+this.selectedLevel.lat+"lon"+ this.selectedLevel.lon);
+  selectedPoint(){
+   // alert("lat:"+this.selectedLevel.lat+"lon"+ this.selectedLevel.lon);
     this.center =latLng(this.selectedLevel.lat,this.selectedLevel.lon);
     this.addMarker(this.selectedLevel.lat,this.selectedLevel.lon);
     this.getLocation(this.selectedLevel.lat,this.selectedLevel.lon);
@@ -181,9 +182,9 @@ data;
 
     this.post.title = this.title;
     this.post.description = this.description;
-    //this.post.tag = this.tags;
-    this.post.address= this.location;
-    alert(this.post.address);
+    this.post.tag = this.tags;
+    //this.post.address= this.location;
+    //alert(this.post.address);
     this.post.lat = this.current_lat;
     this.post.lng = this.current_lng;
     this.post.email = this.loggedUserService.logged_user_mail;
@@ -191,10 +192,16 @@ data;
     return this.newPostService.addPost(this.post)
              .subscribe(
                customers => {
-                console.log(customers);
-                this.massage = customers  
+                //console.log(customers);
+                alert("Post created successfully!");
+                this.title ="";
+                this.description = "";
+                this.tags="";
+                
                }
               );
+
+
   }
 
   
@@ -202,25 +209,16 @@ data;
 
   //Tags dropdown
 
-  //drop down
-selectedTag;
-tagData;
+ 
+  
 
-getAllTags(){
-    
-  return this.coordinateSuggestionService.getAllTags()
-  .subscribe(
-    tags => {
-      console.log(tags);
-      this.tagData = tags
-      
-    }
-    );
-  }
+ 
 
-  tagIsSelected(){
-   // alert(""+this.selectedTag.text);
-    this.tags.push(this.selectedTag.text);
-  }
-
+  
 }
+
+ 
+
+
+
+

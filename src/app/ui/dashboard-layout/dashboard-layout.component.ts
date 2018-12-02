@@ -4,6 +4,7 @@ import { NavigationEnd } from '@angular/router';
 import { Router } from '@angular/router';
 import { LoggedUserService } from '../../services/logged-user.service';
 import { User } from '../../models/user';
+import { Tag } from '../../models/tag'
 
 
 @Component({

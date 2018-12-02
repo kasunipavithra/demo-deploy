@@ -12,6 +12,7 @@ import { BannerComponent } from './banner/banner.component';
 import { CrowdmapComponent } from './crowdmap/crowdmap.component';
 import { PostsComponent } from './posts/posts.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import {SelectModule} from 'ng2-select';
 import { NewpostComponent } from './newpost/newpost.component';
 import { AppRoutingModule } from "../app.routing";
 import { DropPinComponent } from './drop-pin/drop-pin.component';
@@ -21,12 +22,14 @@ import { DropPinComponent } from './drop-pin/drop-pin.component';
 import { NewPostService } from '../services/new-post.service';
 import { DemopostComponent } from './demopost/demopost.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
     LeafletModule.forRoot(),
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    SelectModule
   ],
   declarations: [DashboardLayoutComponent,
     SidenavComponent,

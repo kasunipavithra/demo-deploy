@@ -7,6 +7,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { AppRoutingModule } from "./app.routing";
 import { LoginComponent } from './login/login.component';
 import { UiModule } from './ui/ui.module';
+import {SelectModule} from 'ng2-select';
 
 import { FormsModule } from '@angular/forms';
  
@@ -61,7 +62,8 @@ export function getAuthServiceConfigs() {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule, // for database
     HttpClientModule,
-    SocialLoginModule
+    SocialLoginModule,
+    SelectModule
   ],
 
   providers: [{

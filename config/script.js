@@ -157,10 +157,10 @@ app.get('/api/alltags', function(req, res) {
 
 app.post('/api/addpost', function(req, res){
     var postData = req.body;
-    
-    console.log(postData.address);
+
+    console.log(postData.tag);
   
-                var sql = "INSERT INTO post (title,description,address,lat,lng,email ) VALUES ('"+postData.title+"','"+postData.description+"','"+postData.address+"',"+postData.lat+","+postData.lng+",'"+postData.email+"')";
+                var sql = "INSERT INTO post (title,description,address,lat,lng,email,tags ) VALUES ('"+postData.title+"','"+postData.description+"','"+postData.address+"',"+postData.lat+","+postData.lng+",'"+postData.email+"','"+postData.tag+"')";
                 connection.query(sql, function (error, results, fields) {
                 if (error) throw error;
                     res.json(results);
