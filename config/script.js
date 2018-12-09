@@ -219,19 +219,23 @@ var geocoding =  require('reverse-geocoding');
 //SEARCH QUERIES
 
 //RADIUS LAT LNG
-app.get('/api/pointsradius/:lat/:lng/:radius', function(req, res) {
+app.get('/api/pointsradius/:lat/:lng/:radius/:startDate/:endDate', function(req, res) {
 
     var lat = +req.params['lat'];
     var lng = +req.params['lng'];
     var radius = +req.params['radius'];
+    var startDate = req.params['startDate'];
+    var endDate = req.params['endDate'];
 
     console.log("Radius is*********"+radius);
 
-    var sql = " SELECT *, ( 6371 * ACOS( COS( RADIANS( lat ) ) * COS( RADIANS( "+lat+" ) ) * COS( RADIANS( "+lng+" ) - RADIANS( lng ) ) + SIN( RADIANS( lat ) ) * SIN( RADIANS( "+lat+") ) ) ) AS distance FROM post HAVING distance <= "+radius+" ORDER BY distance ASC";
+    var sql = " SELECT *, ( 6371 * ACOS( COS( RADIANS( lat ) ) * COS( RADIANS( "+lat+" ) ) * COS( RADIANS( "+lng+" ) - RADIANS( lng ) ) + SIN( RADIANS( lat ) ) * SIN( RADIANS( "+lat+") ) ) ) AS distance FROM post HAVING distance <= "+radius+" AND timestamp >'"+startDate+"' AND timestamp <= '"+endDate+"' ORDER BY distance ASC";
 
+    console.log(sql);
                 connection.query(sql, function (error, results, fields) {
                 if (error) throw error;
                     res.json(results);
+                    console.log(results);
                 });
 })
     

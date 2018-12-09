@@ -56,16 +56,22 @@
                         <div class="card">
        
                                 <a class="btn wc-tab-purple" data-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                    <h5><i class="far fa-clock p-1"></i>Date and Time</h5>
+                                    <h5><i class="far fa-clock p-1"></i>Date</h5>
                                   </a>
                                   <div class="collapse" id="collapseExample3">
                                       <div class="card card-body">
                                         <div class="container">
                                           <div class="row">
-                            
+                                            <div class="form-group">
+                                                  <label for="exampleFormControlInput1">From:</label>
+                                                  <input type="text" class="form-control" [(ngModel)]="startDateStr" name="startDateStr" (keydown)="onKeydown($event)" >
+                                            </div>
                                           </div>
                                           <div class="row">
-                            
+                                            <div class="form-group">
+                                              <label for="exampleFormControlInput1">To:</label>
+                                              <input type="text" class="form-control" [(ngModel)]="endDateStr" name="endDateStr" (keydown)="onKeydown($event)">
+                                        </div>
                                           </div>
                                        
                                         </div>

@@ -7,7 +7,7 @@ import { latLng, tileLayer,Map, Layer, marker,icon } from 'leaflet';
 import { NewPostService } from '../../services/new-post.service';
 import { CoordinateSuggestionService } from '../../services/coordinate-suggestion.service';
 import { Post } from '../../models/post';
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard-layout',
@@ -52,6 +52,12 @@ export class DashboardLayoutComponent implements OnInit {
  radius=10;
  pointsRecieved;
 
+ //search by date
+ endDate ;
+ startDate;
+ startDateStr;
+ endDateStr;
+
  
 // Open Street Map definitions
 LAYER_OSM = tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: 'Open Street Map' });
@@ -74,12 +80,27 @@ markers: Layer[] = [];
     private loggedUserService:LoggedUserService,
     private zone: NgZone,
     private newPostService:NewPostService,
-    private coordinateSuggestionService:CoordinateSuggestionService
+    private coordinateSuggestionService:CoordinateSuggestionService,
+    private datePipe:DatePipe
     ) { }
 
     fitBounds: any = null;
 
   ngOnInit() {
+
+      this.endDate = new Date();
+      this.startDate = new Date();
+      
+      this.startDate.setDate( this.endDate.getDate() - 6 );
+      this.startDateStr = this.startDate.toLocaleString();
+      var startDateStrArr = this.startDateStr.split(",");
+      this.startDateStr = startDateStrArr[0];
+
+      this.endDateStr = this.endDate.toLocaleString();
+      var endDateStrArr = this.endDateStr.split(",");
+      this.endDateStr = endDateStrArr[0];
+
+      alert(this.startDateStr)
 
      /***********************setting up logged user************************* */
     this.name = this.route.snapshot.paramMap.get('name');
@@ -119,6 +140,7 @@ markers: Layer[] = [];
            
             this.center =latLng(this.current_lat, this.current_lng);
                 console.log(position.coords.latitude);
+                this.selectedPoint();
         },
         error => {
             switch (error.code) {
@@ -137,7 +159,7 @@ markers: Layer[] = [];
 };
 
    /*********************************setting up map  ends**************************************** */
-
+   
 }
 
 
@@ -192,6 +214,8 @@ return this.coordinateSuggestionService.getSuggestions(this.searchstring)
   customers => {
     console.log(customers);
     this.data = customers
+    this.selectedLevel = customers[0]
+    this.selectedPoint();
     
   }
   );
@@ -205,10 +229,36 @@ data;
 selectedPoint(){
  // alert("lat:"+this.selectedLevel.lat+"lon"+ this.selectedLevel.lon);
   alert("radius:"+this.radius);
-  this.center =latLng(this.selectedLevel.lat,this.selectedLevel.lon);
+  
 
+  var QueryStart = new Date(this.startDateStr);
+  var QueryEnd = new Date();
+  QueryEnd.setDate( QueryEnd.getDate() +1 );
+  var qs=  this.datePipe.transform(QueryStart,"yyyy-MM-dd");
+  var qe = this.datePipe.transform(QueryEnd,"yyyy-MM-dd");
+  alert("qs:  "+qs+"qe:  "+qe);
+
+  var inLat;
+  var inLng;
+
+  if (this.selectedLevel==undefined){
+    inLat = this.current_lat;
+    inLng = this.current_lng;
+  }else{
+    inLat = this.selectedLevel.lat;
+    inLng = this.selectedLevel.lon;
+  }
+
+  this.center =latLng(inLat,inLng);
+
+  
   //get points within given radius
-  return this.coordinateSuggestionService.getPointsRadius(this.selectedLevel.lat,this.selectedLevel.lon,this.radius)
+  return this.coordinateSuggestionService.getPointsRadius(
+    inLat,
+    inLng,
+    this.radius,
+    qs,
+    qe)
   .subscribe(
     customers => {
       console.log(customers);
@@ -233,6 +283,12 @@ selectedPoint(){
   //this.addMarker(this.selectedLevel.lat,this.selectedLevel.lon);
   //this.getLocation(this.selectedLevel.lat,this.selectedLevel.lon);
 
+}
+
+onKeydown(event) {
+  if (event.key === "Enter") {
+    this.selectedPoint();
+  }
 }
 
 

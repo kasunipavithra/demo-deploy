@@ -23,7 +23,7 @@ import { NewPostService } from '../services/new-post.service';
 import { DemopostComponent } from './demopost/demopost.component';
 import { SearchPanelLayoutComponent } from './search-panel-layout/search-panel-layout.component';
 import { SearchpanelComponent } from './searchpanel/searchpanel.component';
-
+import {DatePipe} from '@angular/common';
 
 @NgModule({
   imports: [
@@ -49,7 +49,8 @@ import { SearchpanelComponent } from './searchpanel/searchpanel.component';
 
 
     providers: [
-      NewPostService
+      NewPostService,
+      DatePipe
     ]
 })
 export class UiModule { }
