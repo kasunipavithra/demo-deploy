@@ -114,7 +114,7 @@ markers: Layer[] = [];
             this.current_lng = position.coords.longitude;
             this.lat = this.current_lat;
             this.lng = this.current_lng;
-            this.addMarker(this.current_lat,this.current_lng);
+           // this.addMarker(this.current_lat,this.current_lng);
             this.getLocation(this.current_lat,this.current_lng);
            
             this.center =latLng(this.current_lat, this.current_lng);
@@ -141,21 +141,7 @@ markers: Layer[] = [];
 }
 
 
-onMapReady(map: Map) {
-  map.on('click', <LeafletMouseEvent>(e) => {
-    
-    console.log(e.latlng.lat,e.latlng.lng);
 
-    this.lat = e.latlng.lat;
-    this.lng = e.latlng.lng;
-    //run click event on zone 
-    this.zone.run(() => {
-      this.fitBounds = this.addMarker(e.latlng.lat,e.latlng.lng);
-      this.getLocation(this.lat,this.lng);
-    });
-  
-  });
-}
 
 
 
