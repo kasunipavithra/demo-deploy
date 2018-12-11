@@ -15,6 +15,11 @@
 color:black;
 }
 
+.taglist{
+    color:black;
+    }
+
+
 @media (min-width: 768px) {
     .wrapper{
         width: calc(100% - 200px);

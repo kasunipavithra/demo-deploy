@@ -92,14 +92,29 @@
                                   <div class="collapse" id="collapseExample2">
                                       <div class="card card-body">
                             
-                                              <form>
+                                              <form autocomplete="off">
                                                 <div class="row">
                                                   <div class="col">
-                                                    <input type="text" class="form-control" placeholder="tags">
+                                                    <input type="text"   class="form-control" placeholder="tags" [ngModel]="mymodel" (ngModelChange)="valuechange($event)" name="mymodel">
+                                                    <ul class="taglist">
+                                                      <li  *ngFor="let tag of tagsArr" (click)="getTag(tag)">{{tag.tag}}
+                                                      </li>
+                                                    </ul>
+
+                                                    <ul class="taglist">
+                                                      <li  *ngFor="let tag of selTagsArr" (click)="delTag(tag)">{{tag.tag}}
+                                                      </li>
+                                                    </ul>
+                                                      
                                                   </div>
                                                   <div class="col">
                                                       <button type="submit" class="btn btn-primary">search</button>
                                                   </div>
+
+
+        
+
+
                                                 </div>
                                               </form>
                             

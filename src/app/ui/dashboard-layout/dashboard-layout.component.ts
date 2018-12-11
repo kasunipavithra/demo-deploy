@@ -100,7 +100,9 @@ markers: Layer[] = [];
       var endDateStrArr = this.endDateStr.split(",");
       this.endDateStr = endDateStrArr[0];
 
-      alert(this.startDateStr)
+      this.getAllTags();
+
+      //alert(this.startDateStr)
 
      /***********************setting up logged user************************* */
     this.name = this.route.snapshot.paramMap.get('name');
@@ -228,7 +230,7 @@ data;
 
 selectedPoint(){
  // alert("lat:"+this.selectedLevel.lat+"lon"+ this.selectedLevel.lon);
-  alert("radius:"+this.radius);
+  //alert("radius:"+this.radius);
   
 
   var QueryStart = new Date(this.startDateStr);
@@ -236,7 +238,7 @@ selectedPoint(){
   QueryEnd.setDate( QueryEnd.getDate() +1 );
   var qs=  this.datePipe.transform(QueryStart,"yyyy-MM-dd");
   var qe = this.datePipe.transform(QueryEnd,"yyyy-MM-dd");
-  alert("qs:  "+qs+"qe:  "+qe);
+  //alert("qs:  "+qs+"qe:  "+qe);
 
   var inLat;
   var inLng;
@@ -285,22 +287,64 @@ selectedPoint(){
 
 }
 
+//Tag Functionality implementation
+
+allTagList=[];
+
+getAllTags(){
+  //alert(this.searchstring);
+  return this.coordinateSuggestionService.getAllTags()
+  .subscribe(
+    customers => {
+      console.log(customers);
+      this.allTagList = customers      
+    }
+    );
+  
+  }
+
 onKeydown(event) {
   if (event.key === "Enter") {
     this.selectedPoint();
   }
 }
 
+mymodel;
+valuechange(newValue) {
+  this.mymodel = newValue;
+  //alert(newValue)
 
-}  
+    var len = this.allTagList.length,
+        i = 0;
+    this.tagsArr =[];
+
+    for (; i < len; i++) {
+        if (this.allTagList[i].tag.match(newValue) && newValue !="" && this.tagsArr.length<7) {
+          this.tagsArr.push(this.allTagList[i]);
+        }
+    }
 
 
 
 
+}
 
 
 
+tagsArr =[];
+selTagsArr = [];
+getTag(tag){
+  //alert(tag);
+  this.selTagsArr.push(tag);
+}
 
+delTag(tag){
+  var index = this.selTagsArr.indexOf(tag);
+if (index > -1) {
+  this.selTagsArr.splice(index, 1);
+}
+}
+}
 
 
 
