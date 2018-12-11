@@ -13,6 +13,7 @@ export class CoordinateSuggestionService {
   url = "http://localhost:3000/api/coordinate_suggestion/";
   url2 = "http://localhost:3000/api/location_suggestion/";
   urlTag = "http://localhost:3000/api/alltags";
+  urlPTag = "http://localhost:3000/api/posttag/";
   
 
   // We need Http to talk to a remote server.
@@ -32,6 +33,11 @@ export class CoordinateSuggestionService {
 getAllTags(): Observable<any>{
   return this._http
       .get(this.urlTag);
+}
+
+getTags(post_id): Observable<any>{
+  return this._http
+      .get(this.urlPTag+post_id);
 }
 
 //SEARCH QUERIES

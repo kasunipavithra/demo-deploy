@@ -9,6 +9,7 @@ import { CoordinateSuggestionService } from '../../services/coordinate-suggestio
 import { Post } from '../../models/post';
 import { DatePipe } from '@angular/common';
 
+
 @Component({
   selector: 'app-dashboard-layout',
   templateUrl: './dashboard-layout.component.html',
@@ -255,7 +256,7 @@ selectedPoint(){
 
   
   //get points within given radius
-  return this.coordinateSuggestionService.getPointsRadius(
+    this.coordinateSuggestionService.getPointsRadius(
     inLat,
     inLng,
     this.radius,
@@ -272,12 +273,30 @@ selectedPoint(){
         });*/
 
         
+        
 
 
         this.markers = [];
         for(let i=0; i<this.pointsRecieved.length; i++){
-          this.addMarker(this.pointsRecieved[i].lat,this.pointsRecieved[i].lng); //use i instead of 0
-      }
+
+          this.coordinateSuggestionService.getTags(this.pointsRecieved[i].id).subscribe(
+            customers => {
+              console.log("tags of point"+customers);
+              var pointTags= customers;
+              var count = 0;
+                for(let key in pointTags){
+                  console.log("point tag"+pointTags[key].tag);
+                  //tag of post mached to tag in selected tag list
+                    if(this.selTagsArr.includes(pointTags[key].tag) && count<1){
+                       //markers array does not have the point
+                       this.addMarker(this.pointsRecieved[i].lat,this.pointsRecieved[i].lng); //use i instead of 0
+                        count ++;
+                    }
+                }
+            }
+            );
+
+            }
       
     }
     );
@@ -335,13 +354,17 @@ tagsArr =[];
 selTagsArr = [];
 getTag(tag){
   //alert(tag);
-  this.selTagsArr.push(tag);
+ // if(this.selTagsArr.length<)
+  this.selTagsArr.push(tag.tag);
+  this.selectedPoint();
 }
 
 delTag(tag){
   var index = this.selTagsArr.indexOf(tag);
 if (index > -1) {
   this.selTagsArr.splice(index, 1);
+  this.selectedPoint();
+
 }
 }
 }

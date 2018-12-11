@@ -238,5 +238,24 @@ app.get('/api/pointsradius/:lat/:lng/:radius/:startDate/:endDate', function(req,
                     console.log(results);
                 });
 })
+
+
+
+ //get tags of post
+ app.get('/api/posttag/:postid', function(req, res) {
+    
+    var postid = req.params['postid'];
+    console.log("postid"+postid);
+ 
+    var sql = "SELECT * FROM post_tag WHERE post_id="+postid+"";
+
+   
+                connection.query(sql, function (error, results, fields) {
+                if (error) throw error;
+                    res.json(results);
+                    
+                });
+
+})
     
 app.listen(3000);
