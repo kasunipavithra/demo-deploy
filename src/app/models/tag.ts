@@ -1,3 +1,4 @@
 export class Tag {
-    text: string;   
+  post_id:number;
+  tag:string;  
 }

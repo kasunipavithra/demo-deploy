@@ -4,8 +4,9 @@ import { latLng, tileLayer,Map, Layer, marker,icon } from 'leaflet';
 import { NewPostService } from '../../services/new-post.service';
 import { CoordinateSuggestionService } from '../../services/coordinate-suggestion.service';
 import { Post } from '../../models/post';
+import { Tag } from '../../models/tag';
 import { LoggedUserService } from '../../services/logged-user.service';
-import {SelectModule} from 'ng2-select';
+
 
 @Component({
   selector: 'app-drop-pin',
@@ -57,7 +58,7 @@ fitBounds: any = null;
 
 ngOnInit() {
   //alert(this.newPostService.test);
-  
+  this.getAllTags();
   if (window.navigator && window.navigator.geolocation) {
     window.navigator.geolocation.getCurrentPosition(
         position => {
@@ -159,6 +160,7 @@ getCoordinates(){
     customers => {
       console.log(customers);
       this.data = customers
+      this.selectedLevel = customers[0]
       
     }
     );
@@ -184,6 +186,7 @@ data;
 
     this.post.title = this.title;
     this.post.description = this.description;
+    this.tags = this.selTagsArr.toString();
     this.post.tag = this.tags;
     //this.post.address= this.location;
     //alert(this.post.address);
@@ -191,33 +194,113 @@ data;
     this.post.lng = this.current_lng;
     this.post.email = this.loggedUserService.logged_user_mail;
 
-    return this.newPostService.addPost(this.post)
+    var post_id;
+  
+    this.newPostService.addPost(this.post)
              .subscribe(
                customers => {
                 //console.log(customers);
-                alert("Post created successfully!");
-                this.title ="";
-                this.description = "";
-                this.tags="";
-                
+                post_id = customers.insertId;
+                this.postTag(post_id);
                }
-              );
+              );         
+  }
+
+  newTag = new Tag();
+
+  postTag(post_id){
+          for(let i in this.selTagsArr){
+          
+            alert("from post tag"+post_id+"sel tag"+this.selTagsArr[i]);
+            this.newTag.post_id = post_id;
+            this.newTag.tag = this.selTagsArr[i]; 
+            this.newPostService.addTags(this.newTag)
+            .subscribe(
+              customers => {
+              //console.log(customers);
+              }
+            );
+      }
+
+      this.title ="";
+      this.description = "";
+      this.tags="";
+
+      alert("Post created successfully!");
 
 
   }
-
-  
 
 
   //Tags dropdown
 
  
-  
+  //Tag Functionality implementation
 
+allTagList=[];
+
+getAllTags(){
+  //alert(this.searchstring);
+  return this.coordinateSuggestionService.getAllTags()
+  .subscribe(
+    customers => {
+      console.log(customers);
+      this.allTagList = customers      
+    }
+    );
+  
+  }
+
+
+
+mymodel;
+valuechange(newValue) {
+  this.mymodel = newValue;
+  //alert(newValue)
+
+    var len = this.allTagList.length,
+        i = 0;
+    this.tagsArr =[];
+    
+
+    for (; i < len; i++) {
+        if (this.allTagList[i].tag.match(newValue) && newValue !="" && this.tagsArr.length<7 && !this.selTagsArr.includes(this.allTagList[i].tag)) {
+          this.tagsArr.push(this.allTagList[i].tag);
+        }
+    }
+
+
+
+
+}
+
+
+
+tagsArr =[];
+selTagsArr = [];
+getTag(tag){
+  //alert(tag);
+ // if(this.selTagsArr.length<)
+  this.selTagsArr.push(tag);
+  //remove added tag from tag list
+  var index = this.tagsArr.indexOf(tag);
+  if (index > -1) {
+    this.tagsArr.splice(index, 1);
+  }
+  //this.selectedPoint();
+}
+
+delTag(tag){
+  var index = this.selTagsArr.indexOf(tag);
+  if (index > -1) {
+    this.selTagsArr.splice(index, 1);
+    this.tagsArr.push(tag);
+  // this.selectedPoint();
+  }
+}
  
 
-  
-}
+  }
 
  
 

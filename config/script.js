@@ -159,14 +159,32 @@ app.post('/api/addpost', function(req, res){
     var postData = req.body;
 
     console.log(postData.tag);
-  
-                var sql = "INSERT INTO post (title,description,address,lat,lng,email,tags ) VALUES ('"+postData.title+"','"+postData.description+"','"+postData.address+"',"+postData.lat+","+postData.lng+",'"+postData.email+"','"+postData.tag+"')";
-                connection.query(sql, function (error, results, fields) {
-                if (error) throw error;
-                    res.json(results);
-                });
-        
+    
+    var sql = "INSERT INTO post (title,description,address,lat,lng,email ) VALUES ('"+postData.title+"','"+postData.description+"','"+postData.address+"',"+postData.lat+","+postData.lng+",'"+postData.email+"')";
+    connection.query(sql, function (error, results, fields) {
+    if (error) throw error;
+        res.json(results);
+        console.log(results.insertId);
+     });
+
+    })             
+
+
+app.post('/api/addtags', function(req, res){
+            var postData = req.body;
+            console.log("from add tags");         
+                var sqle = "INSERT INTO post_tag (post_id,tag ) VALUES ("+postData.post_id+",'"+postData.tag+"')";
+                    connection.query(sqle, function (error, results, fields) {
+                    if (error) throw error;
+                        res.json(results);
+                        
+            });
+                                    
 });
+             
+
+        
+
 
 
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Post } from '../models/post';
+import { Tag } from '../models/tag';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,6 +18,7 @@ export class NewPostService {
  // test = "blabla";
 
   private customersUrl = 'http://localhost:3000/api/addpost';  // URL to web api
+  private customersUrl2 = 'http://localhost:3000/api/addtags';
   constructor( 
     private http: HttpClient
   ) { }
@@ -30,8 +32,12 @@ export class NewPostService {
     return this.http.get<Post>(url);
   }
 */
-  addPost (post: Post): Observable<Post> {
+  addPost (post: Post): Observable<any> {
     return this.http.post<Post>(this.customersUrl, post, httpOptions);
+  }
+
+  addTags (tag: Tag): Observable<Tag> {
+    return this.http.post<Tag>(this.customersUrl2, tag, httpOptions);
   }
  
  /* deleteCustomer (customer: Post | number): Observable<Post> {

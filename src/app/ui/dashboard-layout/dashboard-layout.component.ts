@@ -316,6 +316,16 @@ selectedPoint(){
 
 }
 
+
+onKeydown(event) {
+  if (event.key === "Enter") {
+    this.selectedPoint();
+  }
+}
+
+
+
+
 //Tag Functionality implementation
 
 allTagList=[];
@@ -332,11 +342,7 @@ getAllTags(){
   
   }
 
-onKeydown(event) {
-  if (event.key === "Enter") {
-    this.selectedPoint();
-  }
-}
+
 
 mymodel;
 valuechange(newValue) {
@@ -346,10 +352,11 @@ valuechange(newValue) {
     var len = this.allTagList.length,
         i = 0;
     this.tagsArr =[];
+    
 
     for (; i < len; i++) {
-        if (this.allTagList[i].tag.match(newValue) && newValue !="" && this.tagsArr.length<7) {
-          this.tagsArr.push(this.allTagList[i]);
+        if (this.allTagList[i].tag.match(newValue) && newValue !="" && this.tagsArr.length<7 && !this.selTagsArr.includes(this.allTagList[i].tag)) {
+          this.tagsArr.push(this.allTagList[i].tag);
         }
     }
 
@@ -365,7 +372,12 @@ selTagsArr = [];
 getTag(tag){
   //alert(tag);
  // if(this.selTagsArr.length<)
-  this.selTagsArr.push(tag.tag);
+  this.selTagsArr.push(tag);
+  //remove added tag from tag list
+  var index = this.tagsArr.indexOf(tag);
+  if (index > -1) {
+    this.tagsArr.splice(index, 1);
+  }
   this.selectedPoint();
 }
 
@@ -373,10 +385,16 @@ delTag(tag){
   var index = this.selTagsArr.indexOf(tag);
 if (index > -1) {
   this.selTagsArr.splice(index, 1);
+  this.tagsArr.push(tag);
   this.selectedPoint();
 
 }
 }
+
+ 
+
+  
+
 }
 
 

@@ -80,7 +80,7 @@
                         <div class="card-body" >
                             <div class="container p-0 m-0">
                       
-                                <form>
+                                <form autocomplete="off">
                                 <div class="form-group">
                                     <label for="exampleFormControlInput1">Locations</label>
                                     <input type="text" class="form-control" [(ngModel)]="address" name="address" value="{{location}}">
@@ -98,10 +98,30 @@
                                       <textarea class="form-control" [(ngModel)]="description" name="description" rows="3"></textarea>
                                     </div>
 
-                                    <div class="form-group">
-                                      <label for="exampleFormControlTextarea1">Tags</label>
-                                      <textarea class="form-control" [(ngModel)]="tags" name="tags" rows="2"></textarea>
+                                   
+
+
+                                  <!--Adding tags-->
+                                    <div class="row">
+                                      <div class="col">
+                                        <input type="text"   class="form-control" placeholder="tags" [ngModel]="mymodel" (ngModelChange)="valuechange($event)" name="mymodel">
+                                        
+                                        <ul class="tag-sug-list">
+                                          <li  class="tag-sug-item btn btn-primary btn-sm m-1" *ngFor="let tag of tagsArr" (click)="getTag(tag)"><span>{{tag}} <i class="fas fa-plus"></i></span>
+                                          </li>
+                                        </ul>
+
+                                        <ul class="tag-sel-list">
+                                          <li class="tag-sel-item btn btn-success btn-sm m-1" *ngFor="let tag of selTagsArr" (click)="delTag(tag)"><span>{{tag}} <i class="fas fa-times"></i></span>
+                                          </li>
+                                        </ul>
+                                          
+                                      </div>
+                
                                     </div>
+                                  
+
+                                  <!--adding tags ends-->
                                       
                                     <button type="submit" (click)="addPost()" class="btn wc-dark-gray m-3">Post</button>
            
