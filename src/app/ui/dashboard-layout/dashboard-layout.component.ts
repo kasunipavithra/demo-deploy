@@ -106,26 +106,7 @@ markers: Layer[] = [];
       //alert(this.startDateStr)
 
      /***********************setting up logged user************************* */
-    this.name = this.route.snapshot.paramMap.get('name');
-    this.mail = this.route.snapshot.paramMap.get('mail');
-    this.image = this.route.snapshot.paramMap.get('image');
-    this.user.name = this.name;
-    this.user.email = this.mail;
-    this.user.picture = this.image;
-   // var path  = this.image.split("_");
-   // this.user.picture  = path[1].replace(/\//g, "@");
-    console.log(this.image);
-    console.log(this.user.picture);
-    this.loggedUserService.setUserDetails(this.name, this.mail, this.image);
-    this.loggedUserService.addUser(this.user)
-             .subscribe(
-               customers => {
-                console.log(customers);
-                this.massage = customers
-               
-               }
-              );
-  
+   
  /***********************setting up logged user ends************************* */
 
   /*********************************setting up map  **************************************** */

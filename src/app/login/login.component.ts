@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoggedUserService } from '../services/logged-user.service';
 import {
   AuthService,
   FacebookLoginProvider,
   GoogleLoginProvider
 } from 'angular-6-social-login';
-
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,10 @@ import {
 })
 export class LoginComponent implements OnInit {
 
-  constructor( private socialAuthService: AuthService,private router:Router, ) {}
+  user=new User();
+  message;
+
+  constructor( private socialAuthService: AuthService,private router:Router, private loggedUserService:LoggedUserService  ) {}
   
   public socialSignIn(socialPlatform : string) {
     let socialPlatformProvider;
@@ -31,7 +35,24 @@ export class LoginComponent implements OnInit {
         console.log(socialPlatform+" sign in data : " , userData);
         // Now sign-in with userData
         // ...
-        this.router.navigate(['/dashboard', userData.name, userData.email, userData.image  ]);
+        
+
+
+        this.user.name = userData.name;
+        this.user.email = userData.email;
+        this.user.picture = userData.image;
+        this.loggedUserService.setUserDetails( userData.name,  userData.email, userData.image);
+        this.loggedUserService.addUser(this.user)
+             .subscribe(
+               customers => {
+                console.log(customers);
+                this.message = customers
+               
+               }
+              );
+
+              this.router.navigate(['/dashboard']);
+
             
       }
     );
