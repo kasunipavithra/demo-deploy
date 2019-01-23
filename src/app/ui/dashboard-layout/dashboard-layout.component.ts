@@ -7,6 +7,7 @@ import { latLng, tileLayer,Map, Layer, marker,icon } from 'leaflet';
 import { NewPostService } from '../../services/new-post.service';
 import { CoordinateSuggestionService } from '../../services/coordinate-suggestion.service';
 import { Post } from '../../models/post';
+import { Postx } from '../../models/postx';
 import { DatePipe } from '@angular/common';
 
 
@@ -72,6 +73,7 @@ options = {
 
 
 markers: Layer[] = [];
+//posts : [] =[];
 
   /*********************************setting up map  ends**************************************** */
 
@@ -253,13 +255,10 @@ selectedPoint(){
             this.addMarker(value.lat,value.lng);
         });*/
 
-        
-        
-
-
         this.markers = [];
+       // this.posts =[];
+        var post = new Postx();
         for(let i=0; i<this.pointsRecieved.length; i++){
-
           if(this.selTagsArr.length>0){
 
             this.coordinateSuggestionService.getTags(this.pointsRecieved[i].id).subscribe(
@@ -267,12 +266,25 @@ selectedPoint(){
                 console.log("tags of point"+customers);
                 var pointTags= customers;
                 var count = 0;
+
+               // post.id = this.pointsRecieved[i].id;
+               
+               ///post. = this.pointsRecieved[i].id;
+               // post.id = this.pointsRecieved[i].id;
+                
+/*
+                for(let x in pointTags){
+                 
+        
+                }
+*/
                   for(let key in pointTags){
                     console.log("point tag"+pointTags[key].tag);
                     //tag of post mached to tag in selected tag list
                       if(this.selTagsArr.includes(pointTags[key].tag) && count<1){
                          //markers array does not have the point
                          this.addMarker(this.pointsRecieved[i].lat,this.pointsRecieved[i].lng); //use i instead of 0
+                         console.log("values recieved*********"+JSON.stringify(this.pointsRecieved[i]));
                           count ++;
                       }
                   }
@@ -284,6 +296,7 @@ selectedPoint(){
           }else{
             
             this.addMarker(this.pointsRecieved[i].lat,this.pointsRecieved[i].lng); //use i instead of 0
+            console.log("values recieved*********"+JSON.stringify(this.pointsRecieved[i]));
                         
           }
           

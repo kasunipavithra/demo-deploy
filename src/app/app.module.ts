@@ -27,6 +27,7 @@ import {
  // FacebookLoginProvider,
 } from "angular-6-social-login";
 
+
  
 // Configs 
 
@@ -51,7 +52,8 @@ export function getAuthServiceConfigs() {
     AppComponent,
     WelcomeComponent,
     LoginComponent,
-    DbDemoComponent
+    DbDemoComponent,
+   
   ],
   imports: [
     BrowserModule,

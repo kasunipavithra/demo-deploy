@@ -24,6 +24,12 @@ import { DemopostComponent } from './demopost/demopost.component';
 import { SearchPanelLayoutComponent } from './search-panel-layout/search-panel-layout.component';
 import { SearchpanelComponent } from './searchpanel/searchpanel.component';
 import {DatePipe} from '@angular/common';
+import { VendorsComponent } from './vendors/vendors.component';
+import { ProfileComponent } from './profile/profile.component';
+import { LoginVendorComponent } from './login-vendor/login-vendor.component';
+import { LoginNwsdbComponent } from './login-nwsdb/login-nwsdb.component';
+import { LoginNonProfitComponent } from './login-non-profit/login-non-profit.component';
+import { RotaractComponent } from './rotaract/rotaract.component';
 
 @NgModule({
   imports: [
@@ -44,7 +50,7 @@ import {DatePipe} from '@angular/common';
     CrowdmapComponent,
     PostsComponent,
     NewpostComponent, 
-    DropPinComponent, DemopostComponent, SearchPanelLayoutComponent, SearchpanelComponent
+    DropPinComponent, DemopostComponent, SearchPanelLayoutComponent, SearchpanelComponent, VendorsComponent, ProfileComponent, LoginVendorComponent, LoginNwsdbComponent, LoginNonProfitComponent, RotaractComponent
   ],
 
 

@@ -260,7 +260,26 @@ app.get('/api/pointsradius/:lat/:lng/:radius/:startDate/:endDate', function(req,
 
 
  //get tags of post
- app.get('/api/posttag/:postid', function(req, res) {
+ app.get('/api/user/:email', function(req, res) {
+    
+    var postid = req.params['email'];
+    console.log("email"+postid);
+ 
+    var sql = "SELECT * FROM  WHERE post_id="+postid+"";
+
+   
+                connection.query(sql, function (error, results, fields) {
+                if (error) throw error;
+                    res.json(results);
+                    
+                });
+
+})
+
+
+//get user details
+
+app.get('/api/posttag/:postid', function(req, res) {
     
     var postid = req.params['postid'];
     console.log("postid"+postid);

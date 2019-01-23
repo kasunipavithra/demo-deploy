@@ -95,7 +95,8 @@ ngOnInit() {
 
 onMapReady(map: Map) {
     map.on('click', <LeafletMouseEvent>(e) => {
-      
+      this.searchstring ="";
+      this.selectedLevel ="";
       console.log(e.latlng.lat,e.latlng.lng);
 
       this.lat = e.latlng.lat;
@@ -115,6 +116,7 @@ addMarker(latitude:number,longitude:number) {
   this.markers.pop();
   this.current_lat=latitude;
   this.current_lng=longitude;
+  this.center =latLng(latitude,longitude);
   const newMarker = marker(
     [latitude,longitude],
     {
@@ -161,6 +163,7 @@ getCoordinates(){
       console.log(customers);
       this.data = customers
       this.selectedLevel = customers[0]
+      this.addMarker(customers[0].lat,customers[0].lon)
       
     }
     );
@@ -173,6 +176,7 @@ data;
 
   selectedPoint(){
    // alert("lat:"+this.selectedLevel.lat+"lon"+ this.selectedLevel.lon);
+    this.location = "";
     this.center =latLng(this.selectedLevel.lat,this.selectedLevel.lon);
     this.addMarker(this.selectedLevel.lat,this.selectedLevel.lon);
     this.getLocation(this.selectedLevel.lat,this.selectedLevel.lon);
@@ -225,7 +229,7 @@ data;
       this.title ="";
       this.description = "";
       this.tags="";
-
+ 
       alert("Post created successfully!");
 
 

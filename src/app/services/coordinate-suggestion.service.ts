@@ -54,6 +54,13 @@ getPointsRadius(lat:number,
       .get(this.urlRadius+lat+"/"+lng+"/"+radius+"/"+startDate+"/"+endDate);
 }
 
+urlUser = "http://localhost:3000/api/user/";
+
+getUserDetails(post_id:number): Observable<any>{
+return this._http
+.get(this.urlUser+post_id);
+}
+
 
 
 

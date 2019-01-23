@@ -7,6 +7,10 @@ import { DashboardLayoutComponent } from '././ui/dashboard-layout/dashboard-layo
 import {  DbDemoComponent } from "./db-demo/db-demo.component";
 import { NewpostComponent } from "././ui/newpost/newpost.component";
 import { DemopostComponent } from "././ui/demopost/demopost.component";
+import { LoginVendorComponent } from "././ui/login-vendor/login-vendor.component";
+import { LoginNwsdbComponent } from "././ui/login-nwsdb/login-nwsdb.component";
+import { LoginNonProfitComponent } from "././ui/login-non-profit/login-non-profit.component";
+import { RotaractComponent } from './ui/rotaract/rotaract.component';
 
 const routes: Routes = [
   {
@@ -35,10 +39,29 @@ const routes: Routes = [
   },
 
   {
+    path: 'login_vendor',
+    component:  LoginVendorComponent
+  },
+
+  {
+    path: 'login_non_profit',
+    component:  LoginNonProfitComponent
+  },
+
+  {
+    path: 'login_nwsdb',
+    component:  LoginNwsdbComponent
+  },
+
+  {
     path: 'demopost',
     component:  DemopostComponent
-  }
+  },
 
+  {
+    path: 'rotaract',
+    component:  RotaractComponent
+  },
  
 ];
 @NgModule({
