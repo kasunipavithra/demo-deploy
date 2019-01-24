@@ -61,7 +61,10 @@ return this._http
 .get(this.urlUser+post_id);
 }
 
-
-
+urlPost = "http://localhost:3000/api/readposts/";
+readPostData(post_id:number): Observable<any>{
+  return this._http
+  .get(this.urlPost+post_id);
+  }
 
 }

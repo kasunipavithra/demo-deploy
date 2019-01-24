@@ -28,3 +28,20 @@ color:black;
     }
     }
 
+    .mini-post{
+        color:black;
+        font-size: 0.90em;
+    }
+    
+    
+    
+    .mini-post-title{
+        font-weight: bold;
+    }
+    
+    .verified{
+        position: absolute;
+        top:5px;
+        right:5px;
+        width:70px;
+    }

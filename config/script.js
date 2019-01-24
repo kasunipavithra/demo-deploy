@@ -294,5 +294,21 @@ app.get('/api/posttag/:postid', function(req, res) {
                 });
 
 })
+
+//read all post details
+ //get tags of post
+ app.get('/api/readposts/:id', function(req, res) {
+    
+    var postid = req.params['id'];
+
+    var sql = "SELECT * FROM post INNER JOIN user ON user.email = post.email WHERE post.id = "+postid+"";
+                connection.query(sql, function (error, results, fields) {
+                if (error) throw error;
+                    res.json(results);
+                    
+                });
+
+})
+
     
 app.listen(3000);
