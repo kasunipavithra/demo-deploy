@@ -160,7 +160,7 @@ app.post('/api/addpost', function(req, res){
 
     console.log(postData.tag);
     
-    var sql = "INSERT INTO post (title,description,address,lat,lng,email ) VALUES ('"+postData.title+"','"+postData.description+"','"+postData.address+"',"+postData.lat+","+postData.lng+",'"+postData.email+"')";
+    var sql = "INSERT INTO post (title,description,address,lat,lng,email,certified ) VALUES ('"+postData.title+"','"+postData.description+"','"+postData.address+"',"+postData.lat+","+postData.lng+",'"+postData.email+"',"+postData.certified+")";
     connection.query(sql, function (error, results, fields) {
     if (error) throw error;
         res.json(results);
@@ -360,5 +360,38 @@ app.get('/api/settoken/:token', function(req, res) {
             })
 
 
+
+
+//read user verified
+
+app.get('/api/userverified/:email', function(req, res) {
+    
+    var email = req.params['email'];
+
+    var sql = "SELECT verified from user WHERE email='"+email+"'";
+                connection.query(sql, function (error, results, fields) {
+                if (error) throw error;
+                    res.json(results);
+                    
+                });
+
+})
+
+
+//set user verified
+
+app.get('/api/setuserverified/:email', function(req, res) {
+    
+    var email = req.params['email'];
+
+    var sql = "UPDATE user SET verified=1 WHERE email='"+email+"'";
+                connection.query(sql, function (error, results, fields) {
+                if (error) throw error;
+                    res.json(results);
+                    
+                });
+
+
+            })
     
 app.listen(3000);

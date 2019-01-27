@@ -448,7 +448,26 @@ checkValue(event: any){
 
 //end of is certified filter
   
+//Start of VOTING FUNCTIONS
 
+//button status
+green_available :boolean;
+red_available :boolean;
+
+green_voted: boolean;
+read_voted:boolean;
+
+//check if user has voted
+
+//clear recode when cancelling a vote
+
+upvoteFunc(){
+  
+}
+
+downvoteFunc(){
+
+}
 }
 
 

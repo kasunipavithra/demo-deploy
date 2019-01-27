@@ -6,5 +6,6 @@ export class Post {
     lng:number;
     email:string;
     tag: string;
+    certified:number;
 }
 

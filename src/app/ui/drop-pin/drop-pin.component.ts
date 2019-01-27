@@ -1,11 +1,13 @@
 
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Inject } from '@angular/core';
 import { latLng, tileLayer,Map, Layer, marker,icon } from 'leaflet';
 import { NewPostService } from '../../services/new-post.service';
 import { CoordinateSuggestionService } from '../../services/coordinate-suggestion.service';
 import { Post } from '../../models/post';
 import { Tag } from '../../models/tag';
 import { LoggedUserService } from '../../services/logged-user.service';
+import {SESSION_STORAGE, WebStorageService} from 'angular-webstorage-service'
+
 
 
 @Component({
@@ -50,9 +52,10 @@ options = {
 
 
 markers: Layer[] = [];
+logged_user_mail:string;
+userVerified:boolean=false;
 
-
-constructor(private zone: NgZone, private newPostService:NewPostService, private coordinateSuggestionService:CoordinateSuggestionService,private loggedUserService:LoggedUserService ) { }
+constructor(@Inject(SESSION_STORAGE) private storage: WebStorageService, private zone: NgZone, private newPostService:NewPostService, private coordinateSuggestionService:CoordinateSuggestionService,private loggedUserService:LoggedUserService ) { }
 
 fitBounds: any = null;
 
@@ -89,7 +92,9 @@ ngOnInit() {
     );
 };
 
+this.logged_user_mail = this.storage.get("email");
 
+this.readVerified(this.logged_user_mail);
 
 }
 
@@ -196,7 +201,13 @@ data;
     //alert(this.post.address);
     this.post.lat = this.current_lat;
     this.post.lng = this.current_lng;
-    this.post.email = this.loggedUserService.logged_user_mail;
+    this.post.email = this.logged_user_mail;
+    
+    if(this.userVerified){
+      this.post.certified = 1;
+    }else{
+      this.post.certified = 0;
+    }
 
     var post_id;
   
@@ -303,6 +314,23 @@ delTag(tag){
   }
 }
  
+//read whether user is certified
+readVerified(email:string){
+
+  this.coordinateSuggestionService.getUserVerified(email)
+  .subscribe(
+    postdata => {
+      //alert(postdata[0].verified);
+      if(postdata[0].verified=="1"){
+        this.userVerified = true;
+      }else{
+        this.userVerified=false;
+      }
+    }
+  );
+
+}
+
 
   }
 

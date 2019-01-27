@@ -21,6 +21,9 @@ export class ProfileComponent implements OnInit {
   routedMail:string;
   logged_user_mail:string;
   owner_came:boolean = false;
+  userVerified:boolean = false;
+  code:number;//code user entered
+  token:number;//read from database
 
   ngOnInit() {
     this.routedMail = atob(this.route.snapshot.paramMap.get('email'));
@@ -31,6 +34,8 @@ export class ProfileComponent implements OnInit {
       this.owner_came = true;
     }
     this.getUserPosts();
+    this.readVerified(this.routedMail);
+    this.readToken();
   }
 
     //function to retrive all posts of the profile on email
@@ -109,4 +114,72 @@ checkValue(event: any){
 
 //end of is certified filter
 
+
+
+//read whether user is certified
+readVerified(email:string){
+
+  this.coordinateSuggestionService.getUserVerified(email)
+  .subscribe(
+    postdata => {
+      //alert(postdata[0].verified);
+      if(postdata[0].verified=="1"){
+        this.userVerified = true;
+      }else{
+        this.userVerified=false;
+      }
+    }
+  );
+
 }
+
+
+setVerified(email:string){
+
+  this.coordinateSuggestionService.setUserVerified(email)
+  .subscribe(
+    postdata => {
+      alert("User is updated as a verified user");
+      location.reload();
+    }
+  );
+
+}
+
+
+readToken(){
+
+  this.coordinateSuggestionService.getToken()
+  .subscribe(
+    postdata => {
+      
+      this.token = postdata[0].token;
+     
+    }
+  );
+
+}
+
+message:boolean =false;
+
+matchCodes(){
+
+  alert("code:" +this.code+" token:"+this.token);
+
+  if(this.code == this.token){
+      this.setVerified(this.routedMail);
+  }else{
+    this.message = true;
+  }
+
+}
+
+valuechange(event){
+
+  this.message = false;
+}
+
+
+}
+
+

@@ -85,4 +85,16 @@ setToken(token:number): Observable<any>{
   .get(this.setTokenUrl+token);
   }
 
+
+readuserverified = "http://localhost:3000/api/userverified/";
+getUserVerified(email:string): Observable<any>{
+  return this._http
+  .get(this.readuserverified+email);
+  }
+
+setuserverified = "http://localhost:3000/api/setuserverified/";
+setUserVerified(email:string): Observable<any>{
+  return this._http
+  .get(this.setuserverified+email);
+  }
 }
