@@ -9,6 +9,7 @@ import { CoordinateSuggestionService } from '../../services/coordinate-suggestio
 import { MiniPost } from '../../models/minipost';
 import { Postx } from '../../models/postx';
 import { DatePipe } from '@angular/common';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 
 @Component({
@@ -256,7 +257,7 @@ export class DashboardLayoutComponent implements OnInit {
             });*/
 
             this.markers = [];
-          // this.posts =[];
+            this.postDataArray =[];
             var post = new Postx();
             for(let i=0; i<this.pointsRecieved.length; i++){
               if(this.selTagsArr.length>0){
@@ -314,9 +315,6 @@ export class DashboardLayoutComponent implements OnInit {
     onKeydown(event) {
       if (event.key === "Enter") {
         this.selectedPoint();
-        this.postDataArray.sort(function(a, b){
-          return a.votegap-b.votegap
-      })
       }
     }
 
@@ -420,10 +418,18 @@ export class DashboardLayoutComponent implements OnInit {
           postItem.votegap = voteG;
           postItem.upvote = postdata[0].upvote;
           postItem.downvote = postdata[0].downvote;
+          postItem.tags = [];
+          this.coordinateSuggestionService.getTags(postdata[0].id).subscribe(
+           
+            tags => {
+              var i : any ;
+              for(i in tags){
+                postItem.tags.push(tags[i].tag+"");
+                //console.log("tags"+ tags[tag].tag);
+              }
+            });
    
-  
           this.postDataArray.push(postItem);
-          
           console.log("post data***"+JSON.stringify(this.postItem));
         }
       );

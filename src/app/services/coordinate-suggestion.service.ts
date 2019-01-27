@@ -67,4 +67,22 @@ readPostData(post_id:number): Observable<any>{
   .get(this.urlPost+post_id);
   }
 
+urlprofilepost = "http://localhost:3000/api/userposts/";
+getUsersPosts(email:string): Observable<any>{
+  return this._http
+  .get(this.urlprofilepost+email);
+  }
+
+readTokenUrl = "http://localhost:3000/api/readtoken";
+getToken(): Observable<any>{
+  return this._http
+  .get(this.readTokenUrl);
+  }
+
+setTokenUrl = "http://localhost:3000/api/settoken/";
+setToken(token:number): Observable<any>{
+  return this._http
+  .get(this.setTokenUrl+token);
+  }
+
 }

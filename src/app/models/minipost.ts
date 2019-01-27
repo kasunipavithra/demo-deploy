@@ -9,5 +9,6 @@ export class MiniPost {
     downvote:number;
     votegap:number;
     name: string;
+    tags :string [];
     
 }

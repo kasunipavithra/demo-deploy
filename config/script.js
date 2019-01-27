@@ -310,5 +310,55 @@ app.get('/api/posttag/:postid', function(req, res) {
 
 })
 
+//read all posts of given user
+
+ app.get('/api/userposts/:email', function(req, res) {
+    
+    var email = req.params['email'];
+
+    var sql = "SELECT id FROM post WHERE email='"+email+"'";
+                connection.query(sql, function (error, results, fields) {
+                if (error) throw error;
+                    res.json(results);
+                    
+                });
+
+
+            })
+
+
+//read organization token
+
+app.get('/api/readtoken', function(req, res) {
+    
+  
+
+    var sql = "SELECT token from organization WHERE name='rotaract'";
+                connection.query(sql, function (error, results, fields) {
+                if (error) throw error;
+                    res.json(results);
+                    
+                });
+
+})
+
+
+//set organization token
+
+app.get('/api/settoken/:token', function(req, res) {
+    
+    var token = req.params['token'];
+
+    var sql = "UPDATE organization SET token='"+token+"' WHERE name='rotaract'";
+                connection.query(sql, function (error, results, fields) {
+                if (error) throw error;
+                    res.json(results);
+                    
+                });
+
+
+            })
+
+
     
 app.listen(3000);

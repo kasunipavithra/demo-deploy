@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoggedUserService } from '../services/logged-user.service';
+import {SESSION_STORAGE, WebStorageService} from 'angular-webstorage-service';
 import {
   AuthService,
   FacebookLoginProvider,
@@ -17,8 +18,9 @@ export class LoginComponent implements OnInit {
 
   user=new User();
   message;
+  public data:any=[]
 
-  constructor( private socialAuthService: AuthService,private router:Router, private loggedUserService:LoggedUserService  ) {}
+  constructor( @Inject(SESSION_STORAGE) private storage: WebStorageService,private socialAuthService: AuthService,private router:Router, private loggedUserService:LoggedUserService  ) {}
   
   public socialSignIn(socialPlatform : string) {
     let socialPlatformProvider;
@@ -41,6 +43,12 @@ export class LoginComponent implements OnInit {
         this.user.name = userData.name;
         this.user.email = userData.email;
         this.user.picture = userData.image;
+
+        this.saveInLocal("name",userData.name);
+        this.saveInLocal("email",userData.email);
+        this.saveInLocal("picture",userData.image);
+
+
         this.loggedUserService.setUserDetails( userData.name,  userData.email, userData.image);
         this.loggedUserService.addUser(this.user)
              .subscribe(
@@ -59,6 +67,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  	
+  saveInLocal(key, val): void {
+    console.log('recieved= key:' + key + 'value:' + val);
+    this.storage.set(key, val);
+    this.data[key]= this.storage.get(key);
   }
 
 }

@@ -11,6 +11,7 @@ import { LoginVendorComponent } from "././ui/login-vendor/login-vendor.component
 import { LoginNwsdbComponent } from "././ui/login-nwsdb/login-nwsdb.component";
 import { LoginNonProfitComponent } from "././ui/login-non-profit/login-non-profit.component";
 import { RotaractComponent } from './ui/rotaract/rotaract.component';
+import { ProfileComponent } from './ui/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,11 @@ const routes: Routes = [
   {
     path: 'rotaract',
     component:  RotaractComponent
+  },
+
+  {
+    path: 'profile/:email',
+    component:  ProfileComponent
   },
  
 ];

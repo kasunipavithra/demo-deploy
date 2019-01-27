@@ -12,39 +12,65 @@
       
           <div class="container-fluid">
 
-
+            <div class="row">
+                        
+                  <img src="../../../assets/rotalogo.jpg" class="rounded-circle m-2" style="width:50px; height: 50px">     
+                  <h2 class="m-2">Rotaract Club, Badulla</h2>
+                  <img src="../../../assets/rota.jpg" class="m-2">
+            </div>
 
           
-                <div class="row">
-                  <div class="col-md-8">
-                      
-
-
-
-   
-                      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                  </div>
+            <div class="row">
+               
                   <div class="col-md-4">
-                     
+                              <div class="card">
+                                          <h5 class="card-title wc-dark-gray p-2">Generate Member Code</h5>
+                                          <div class="card-body" >
+                                                      <form autocomplete="off">
+                                                                  <div class="row">
+                                                                    <div class="col-4">
+                                                                              <button type="button" (click)="randomToken()" class="btn btn-primary">Generate</button>
+                                                                    </div>
+                                                                    <div class="col-8">
+                                                                              <input type="text" class="form-control" placeholder="access code" [ngModel]="token" name="token"> 
+                                                                    </div>
+                  
+                                                                  </div>
+                                                                </form>
+                                          </div>
+        
+                             </div>
                   </div>
-                </div>
+                  
+                  <div class="col-md-4">
+                              <div class="card">
+                                          <h5 class="card-title wc-dark-gray p-2">Manage Members</h5>
+                                          <div class="card-body" >
+                                                      <div class="list-group">
+                                                                  <a href="#" class="list-group-item list-group-item-action list-group-item-dark">View Members</a>
+                                                                  <a href="#" class="list-group-item list-group-item-action list-group-item-dark">Grant Membership</a>
+                                                                  <a href="#" class="list-group-item list-group-item-action list-group-item-dark">Cancel Membership</a>
+                                                                </div>
+                                          </div>
+        
+                             </div>
+                  </div>
+                  
+                  <div class="col-md-4">
+                              <div class="card">
+                                          <h5 class="card-title wc-dark-gray p-2">Settings</h5>
+                                          <div class="card-body" >
+                                                      <div class="list-group">
+                                                                  <a href="#" class="list-group-item list-group-item-action list-group-item-dark"><i class="fas fa-palette"></i> Change Appearance</a>
+                                                                  <a href="#" class="list-group-item list-group-item-action list-group-item-dark"><i class="fas fa-volume-off"></i> Mute Page</a>
+                                                                  <a href="#" class="list-group-item list-group-item-action list-group-item-dark"><i class="fas fa-sign-out-alt"></i> Leave</a>
+                                                                </div>
+                                          </div>
+        
+                             </div>
+                  </div>
+
+            </div>
           
           </div>
       
