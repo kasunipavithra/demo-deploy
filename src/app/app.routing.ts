@@ -12,6 +12,8 @@ import { LoginNwsdbComponent } from "././ui/login-nwsdb/login-nwsdb.component";
 import { LoginNonProfitComponent } from "././ui/login-non-profit/login-non-profit.component";
 import { RotaractComponent } from './ui/rotaract/rotaract.component';
 import { ProfileComponent } from './ui/profile/profile.component';
+import { VendorsComponent } from './ui/vendors/vendors.component';
+import { NewBusinessComponent } from './ui/new-business/new-business.component';
 
 const routes: Routes = [
   {
@@ -68,6 +70,18 @@ const routes: Routes = [
     path: 'profile/:email',
     component:  ProfileComponent
   },
+
+  {
+    path: 'vendors',
+    component:  VendorsComponent
+  },
+
+  {
+    path: 'newbusiness',
+    component:  NewBusinessComponent
+  },
+
+  
  
 ];
 @NgModule({

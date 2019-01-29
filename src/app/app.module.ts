@@ -20,6 +20,7 @@ import { DbDemoComponent } from './db-demo/db-demo.component';
 import { LoggedUserService } from './services/logged-user.service';
 import { CoordinateSuggestionService } from './services/coordinate-suggestion.service';
 import { StorageServiceModule} from 'angular-webstorage-service';
+import { BusinessSuggestionService } from './services/business-suggestion.service';
 
 import {
   SocialLoginModule,
@@ -67,7 +68,8 @@ export function getAuthServiceConfigs() {
     HttpClientModule,
     SocialLoginModule,
     SelectModule,
-    StorageServiceModule
+    StorageServiceModule,
+    
   ],
 
   providers: [{
@@ -75,7 +77,8 @@ export function getAuthServiceConfigs() {
     useFactory: getAuthServiceConfigs
   },
   LoggedUserService,
-  CoordinateSuggestionService
+  CoordinateSuggestionService,
+  BusinessSuggestionService
 
 ],
   bootstrap: [AppComponent]

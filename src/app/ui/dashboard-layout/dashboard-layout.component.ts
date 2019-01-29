@@ -1,15 +1,17 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { LoggedUserService } from '../../services/logged-user.service';
 import { User } from '../../models/user';
-import { latLng, tileLayer,Map, Layer, marker,icon } from 'leaflet';
+import { latLng, tileLayer, Layer, marker,icon } from 'leaflet';
 import { NewPostService } from '../../services/new-post.service';
 import { CoordinateSuggestionService } from '../../services/coordinate-suggestion.service';
 import { MiniPost } from '../../models/minipost';
 import { Postx } from '../../models/postx';
 import { DatePipe } from '@angular/common';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import {SESSION_STORAGE, WebStorageService} from 'angular-webstorage-service'
+
 
 
 @Component({
@@ -76,6 +78,8 @@ export class DashboardLayoutComponent implements OnInit {
     markers: Layer[] = [];
     //posts : [] =[];
 
+    logged_user_mail :string;
+
       /*********************************setting up map  ends**************************************** */
 
       constructor(  
@@ -85,7 +89,8 @@ export class DashboardLayoutComponent implements OnInit {
         private zone: NgZone,
         private newPostService:NewPostService,
         private coordinateSuggestionService:CoordinateSuggestionService,
-        private datePipe:DatePipe
+        private datePipe:DatePipe,
+        @Inject(SESSION_STORAGE) private storage: WebStorageService,
         ) { }
 
         fitBounds: any = null;
@@ -145,6 +150,7 @@ export class DashboardLayoutComponent implements OnInit {
         );
     };
 
+    this.logged_user_mail = this.storage.get("email");
       /*********************************setting up map  ends**************************************** */
       
     }
@@ -395,6 +401,9 @@ export class DashboardLayoutComponent implements OnInit {
     postItem = new MiniPost();
     readPostData(id:number){
 
+      this.readVotes(id,this.logged_user_mail);
+
+
       this.coordinateSuggestionService.readPostData(id)
       .subscribe(
         postdata => {
@@ -449,25 +458,94 @@ checkValue(event: any){
 //end of is certified filter
   
 //Start of VOTING FUNCTIONS
+green_status = new Map();
+red_status = new Map();
 
-//button status
-green_available :boolean;
-red_available :boolean;
 
-green_voted: boolean;
-read_voted:boolean;
+// status 0 = unavailable
+// status 1 = available
+// status 2 = voted
+
 
 //check if user has voted
 
+readVotes(id:number, email:string){
+
+  //set button statuses
+  this.coordinateSuggestionService.readVote(id,email)
+  .subscribe(
+    votedata => {
+
+      if(votedata == undefined  || votedata == 0 || votedata == []){
+        this.green_status.set(id,1);
+        this.red_status.set(id,1);
+        console.log("id:"+id+"green 1 red 1");
+      }else if(votedata[0].upvote==1){
+        this.green_status.set(id,2);
+        this.red_status.set(id,0);
+        console.log("id:"+id+"green 2 red 0");
+      }else if(votedata[0].downvote==1){
+        this.green_status.set(id,0);
+        this.red_status.set(id,2);
+        console.log("id:"+id+"green 0 red 2");
+      }else{
+        //console.log("id:"+id+"votedata"+votedata[0].upvote);
+      }
+      
+    })
+}
+
 //clear recode when cancelling a vote
 
-upvoteFunc(){
-  
+upvoteFunc(id:number){
+    //set button statuses
+    this.coordinateSuggestionService.insertVote(id,this.logged_user_mail,"up")
+    .subscribe(
+      votedata => {
+        alert("success");
+      })
 }
 
-downvoteFunc(){
-
+downvoteFunc(id:number){
+  this.coordinateSuggestionService.insertVote(id,this.logged_user_mail,"down")
+    .subscribe(
+      votedata => {
+        alert("success");
+      })
 }
+
+
+greenStatusShow(id:number):boolean{
+  //alert("triggered " +id);
+  if(this.green_status.get(id)==0){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+redStatusShow(id:number):boolean{
+  if(this.red_status.get(id)==0){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+getColorRed(id:number){
+    if(this.red_status.get(id)==0){
+      return "gray";
+    }
+
+    if(this.red_status.get(id)==1){
+      return "white";
+    }
+
+    if(this.red_status.get(id)==2){
+      return "red";
+    }
+}
+
 }
 
 

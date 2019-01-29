@@ -10,5 +10,4 @@ export class MiniPost {
     votegap:number;
     name: string;
     tags :string [];
-    
 }
