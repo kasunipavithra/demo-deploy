@@ -1,0 +1,47 @@
+
+
+
+.wrapper{
+    width: 100%;
+    position: absolute;
+    top:0;
+    height: 100vh;
+    z-index: -1;
+    padding:0;
+    margin:0;
+}
+
+.form-group{
+color:black;
+}
+
+.taglist{
+    color:black;
+    }
+
+
+@media (min-width: 768px) {
+    .wrapper{
+        width: calc(100% - 200px);
+        left: 200px;
+        height: 100vh;
+    }
+    }
+
+    .mini-post{
+        color:black;
+        font-size: 0.90em;
+    }
+    
+    
+    
+    .mini-post-title{
+        font-weight: bold;
+    }
+    
+    .verified{
+        position: absolute;
+        top:5px;
+        right:5px;
+        width:70px;
+    }

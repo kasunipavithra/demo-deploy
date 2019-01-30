@@ -772,8 +772,90 @@ app.get('/api/insertVoteBS/:id/:email/:vote', function(req, res) {
             })
 
 
-//increase vote count
 
+
+
+
+
+
+
+
+
+
+  app.post('/api/addpostBSR', function(req, res){
+    var postData = req.body;
+
+    console.log(postData.tag);
+    
+    var sql = "INSERT INTO request (title,description,address,lat,lng,email,certified ) VALUES ('"+postData.title+"','"+postData.description+"','"+postData.address+"',"+postData.lat+","+postData.lng+",'"+postData.email+"',"+postData.certified+")";
+    connection.query(sql, function (error, results, fields) {
+    if (error) throw error;
+        res.json(results);
+        console.log(results.insertId);
+     });
+
+    })             
+
+
+app.post('/api/addtagsBSR', function(req, res){
+            var postData = req.body;
+            console.log("from add tags");         
+                var sqle = "INSERT INTO request_category (post_id,tag ) VALUES ("+postData.post_id+",'"+postData.tag+"')";
+                    connection.query(sqle, function (error, results, fields) {
+                    if (error) throw error;
+                        res.json(results);
+                        
+            });
+                                    
+});
+
+
+
+app.get('/api/taggedRequests/:tag', function(req, res) {
+    
+    var tags = req.params['tag'];
+
+    var sql = "SELECT post_id from request_category WHERE tag='"+tags+"'";
+                connection.query(sql, function (error, results, fields) {
+                if (error) throw error;
+                    res.json(results);
+                    
+                });
+
+})
+
+
+//read all post details
+ //get tags of post
+ app.get('/api/readpostRX/:id', function(req, res) {
+    
+    var postid = req.params['id'];
+
+    var sql = "SELECT * FROM request INNER JOIN user ON user.email = request.email WHERE id = "+postid+"";
+                connection.query(sql, function (error, results, fields) {
+                if (error) throw error;
+                    res.json(results);
+                    
+                });
+
+})
+
+
+app.get('/api/posttagRX/:postid', function(req, res) {
+    
+    var postid = req.params['postid'];
+    console.log("postid"+postid);
+ 
+    var sql = "SELECT * FROM request_category WHERE post_id="+postid+"";
+
+   
+                connection.query(sql, function (error, results, fields) {
+                if (error) throw error;
+                    res.json(results);
+                    
+                });
+
+})
 //######################################################################################################################
 //################################################################################################################################
 

@@ -138,6 +138,42 @@ voteurl2 = "http://localhost:3000/api/insertVoteBS/";
     return this.http.post<Tag>(this.customersUrl2, tag, httpOptions);
   }
 
+  private customersUrlR = 'http://localhost:3000/api/addpostBSR';  // URL to web api
+  private customersUrl2R = 'http://localhost:3000/api/addtagsBSR';
+
+
+  
+  addPostR (post: Post): Observable<any> {
+    return this.http.post<Post>(this.customersUrlR, post, httpOptions);
+  }
+
+  addTagsR (tag: Tag): Observable<Tag> {
+    return this.http.post<Tag>(this.customersUrl2R, tag, httpOptions);
+  }
+
+
+  
+
+  reqtag = "http://localhost:3000/api/taggedRequests/";
+  readRequest(tag:string): Observable<any>{
+    return this._http
+    .get(this.reqtag+tag);
+    }
+
+
+
+    urlPostX = "http://localhost:3000/api/readpostRX/";
+    readPostDataRX(post_id:number): Observable<any>{
+      return this._http
+      .get(this.urlPostX+post_id);
+      }
+
+    urlPTagX = "http://localhost:3000/api/posttagRX/";
+    getTagsRX(post_id): Observable<any>{
+      return this._http
+          .get(this.urlPTagX+post_id);
+    }
+
 }
 
 

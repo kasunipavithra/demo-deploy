@@ -8,11 +8,11 @@ import { LoggedUserService } from '../../services/logged-user.service';
 import {SESSION_STORAGE, WebStorageService} from 'angular-webstorage-service'
 
 @Component({
-  selector: 'app-new-business',
-  templateUrl: './new-business.component.html',
-  styleUrls: ['./new-business.component.css']
+  selector: 'app-new-request',
+  templateUrl: './new-request.component.html',
+  styleUrls: ['./new-request.component.css']
 })
-export class NewBusinessComponent implements OnInit {
+export class NewRequestComponent implements OnInit {
 
   lat;//clicked location
   lng;
@@ -167,7 +167,6 @@ getCoordinates(){
       this.selectedLevel = customers[0]
       this.addMarker(customers[0].lat,customers[0].lon)
       this.getLocation(customers[0].lat,customers[0].lon)
-      
     }
     );
 
@@ -209,7 +208,7 @@ data;
 
     var post_id;
   
-    this.coordinateSuggestionService.addPost(this.post)
+    this.coordinateSuggestionService.addPostR(this.post)
              .subscribe(
                customers => {
                 //console.log(customers);
@@ -227,7 +226,7 @@ data;
             //alert("from post tag"+post_id+"sel tag"+this.selTagsArr[i]);
             this.newTag.post_id = post_id;
             this.newTag.tag = this.selTagsArr[i]; 
-            this.coordinateSuggestionService.addTags(this.newTag)
+            this.coordinateSuggestionService.addTagsR(this.newTag)
             .subscribe(
               customers => {
               //console.log(customers);
@@ -239,7 +238,7 @@ data;
       this.description = "";
       this.tags="";
  
-      alert("Business added successfully!");
+      alert("Request added successfully!");
 
 
   }
@@ -328,7 +327,6 @@ readVerified(email:string){
   );
 
 }
-
 
 
 }

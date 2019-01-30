@@ -87,7 +87,7 @@
                         <div class="card">
        
                                 <a class="btn wc-tab-blu-green" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                    <h5><i class="fas fa-tags p-1"></i>Tags</h5>
+                                    <h5><i class="fas fa-tags p-1"></i>Services</h5>
                                   </a>
                             
                                   <div class="collapse" id="collapseExample2">
@@ -130,13 +130,13 @@
       
           <div class="container-fluid">
 
-              <!--<div class="row">
+              <div class="row">
 
-                    <a routerLink="/newpost">
-                        <button type="button" class="btn wc-dark-gray m-3">new post</button>
+                    <a routerLink="/newrequest">
+                        <button type="button" class="btn wc-dark-gray m-3">new Request</button>
                        </a>
 
-              </div>-->
+              </div>
 
 
           
@@ -185,20 +185,22 @@
                                 <!--Start of posts -->
 
                                 <div class="card">
-                                  <h5 class="card-title wc-dark-gray p-2">Posts</h5>
+                                  <h5 class="card-title wc-dark-gray p-2">Vendors</h5>
                                   <div class="card-body" >
                                     <div class="container p-0 m-0" style="height: 430px; overflow-y: scroll;">
                               
                                      
                                       
                                       <div *ngFor="let minipost of postDataArray">
-                                        <div *ngIf="minipost.certified || !isVerified" class="card mini-post border border-primary p-1 m-1" style=" overflow-y: hidden;">
-                                              <p class="mini-post-title  mt-3 mb-0">{{minipost.title}}</p>  
-                                              <span *ngIf="minipost.certified" class="badge badge-warning mx-1 p-1 verified"> <i class="fas fa-user-shield"></i> verified</span>
+                                        <div class="card mini-post border border-primary p-1 m-1" style=" overflow-y: hidden;">
+                                              <p class="mini-post-title  mt-3 mb-0"><i class="fas fa-shopping-basket"></i> {{minipost.title}}</p>  
+                                              
                                               <p class="my-0 text-secondary"><i class="fas fa-map-marker-alt "></i> {{minipost.address}}</p>
-                                              <p class="my-0 text-secondary"><i class="far fa-calendar-alt"></i>{{minipost.date}}</p>  
+                                              <!--<p class="my-0 text-secondary"><i class="far fa-calendar-alt"></i>{{minipost.date}}</p> --> 
                                               <p class="my-0 text-secondary"><i class="fas fa-user-circle"></i>{{minipost.name}}</p> 
-                                              <a class="text-info">see more..</a>
+                                              <a routerLink="/vendorprofile/{{minipost.id}}">
+                                                see more..
+                                               </a>
                                               <div class="d-flex justify-content-end">
                                                   <span *ngFor="let tag of minipost.tags" class="badge badge-primary mx-1 p-1">{{tag}}</span>
                                                   
@@ -206,7 +208,7 @@
                                               <div class="d-flex justify-content-start">
                                                   <span class="badge badge-success mx-1 p-1"><i class="fas fa-check-circle"></i> {{minipost.upvote}}</span>
                                                   <span class="badge badge-danger mx-1 p-1"><i class="fas fa-times-circle"></i> {{minipost.downvote}}</span>
-                                                  {{minipost.votegap}}
+                                                  
                                               </div>
                                           </div>
                                         </div>

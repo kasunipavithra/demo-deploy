@@ -146,6 +146,7 @@ removeMarker() {
 
 
 getLocation(lat:number,lng:number) {
+
   console.log("from drop pin ts lat"+lat+"lon"+lng)
   return this.coordinateSuggestionService.getLocation(lat,lng)
              .subscribe(
@@ -169,6 +170,7 @@ getCoordinates(){
       this.data = customers
       this.selectedLevel = customers[0]
       this.addMarker(customers[0].lat,customers[0].lon)
+      this.getLocation(customers[0].lat,customers[0].lon)
       
     }
     );

@@ -8,13 +8,13 @@
           <app-banner></app-banner>
          
          
-        
+          <h1 class="page-title">{{username}}'s Dashboard</h1>
       
           <div class="container-fluid">
 
             <div class="row mt-5">
 
-                  <div class="col-4 mb-5">
+                  <div class="col-6 mb-5">
                               <div class="card">
                                     <h5 class="card-title wc-dark-gray p-2">Memberships</h5>
                                     <div class="card-body" >
@@ -92,90 +92,11 @@
 
 
 
-                        <div class="col-4 mb-5">
-                              <div class="card">
-                                          <h5 class="card-title wc-dark-gray p-2">Businesses</h5>
-                                    <div class="card-body">
-                                          
-                                          
-                                                      <!--<img src="../../../assets/rota.jpg" class="m-2">--> 
-
-                                                                  <p class="text-secondary" *ngIf="!userVerified">You have not updated any membership details yet.</p>
-                                                                  
-                                                                  
-                                                                  <br>
-
-                                                                  <p *ngIf="userVerified" class="text-dark ml-1">Businesses:</p>
-
-                                                                  <div *ngIf="userVerified" class="row">
-                                                                              <img src="../../../assets/rotalogo.jpg" class="rounded-circle m-2" style="width:50px; height: 50px">     
-                                                                              <p  class="m-2 pt-2 text-dark" >Rotaract Club, Badulla</p>
-                                                                  </div>
-                                                                  
-
-
-                                                                  <a class="btn wc-tab-green mt-3" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                                              <h5><i class="fas fa-user-shield px-2"></i>Add Business</h5>
-                                                                        </a>
-                                                                  
-                                                                        <div class="collapse" id="collapseExample2">
-                                                                              <div class="card card-body">
-                                                                  
-                                                                                          <div class="row">
-                                                                                                <a routerLink="/newbusiness">
-                                                                                                      <button type="button" class="btn wc-dark-gray m-3">New Business</button>
-                                                                                                </a>
-                                                                                          </div>
-
-                                                                                    
-
-
-                                                                                    
-                                                                              </div>
-                                                                              
-                                                                  
-                                                      </div>
-
-                                    </div>
-                              </div>      
-                        </div>
-
-
-
-
-
-
-
-
-
-
-
-                        <div class="col-4 mb-5">
-                              <div class="card">
-                                    <h5 class="card-title wc-dark-gray p-2">Requests</h5>
-                                   
-
-                              </div>
-                        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
                
-                  <div class="col-4 mb-5">
+                  <div class="col-6 mb-5">
                   <!--Start of posts -->
 
                   <div class="card">
@@ -223,6 +144,152 @@
 
                         </div>
                   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  <div class="col-6 mb-5">
+                              <div class="card">
+                                          <h5 class="card-title wc-dark-gray p-2">Businesses</h5>
+                                    <div class="card-body">
+                                          
+                                          
+                                                      <!--<img src="../../../assets/rota.jpg" class="m-2">--> 
+
+                                                                 
+
+                                                                  <p  class="text-dark ml-1"> My Businesses:</p>
+
+                                                   
+                                                                              <div class="col-12" *ngFor="let minipostBS of postDataArrayBS">
+                                                                                          <div  class="card mini-post border border-primary p-1 m-1" style=" overflow-y: hidden;">
+                                                                                                <p class="mini-post-title  mt-3 mb-0"><i class="fas fa-shopping-basket"></i>  {{minipostBS.title}}</p>  
+                                                                                                
+                                                                                                <p class="my-0 text-secondary"><i class="fas fa-map-marker-alt "></i> {{minipostBS.address}}</p>
+                                                                                                <!--<p class="my-0 text-secondary"><i class="far fa-calendar-alt"></i>{{minipostBS.date}}</p>  
+                                                                                                <p class="my-0 text-secondary"><i class="fas fa-user-circle"></i>{{minipostBS.name}}</p> -->
+                                                                                                <p class="my-0 text-secondary"> {{minipostBS.description}}</p>
+
+                                                                                                <a routerLink="/vendorprofile/{{minipostBS.id}}">
+                                                                                                      see more..
+                                                                                                     </a>
+                                                                                                <div class="d-flex justify-content-end">
+                                                                                                <span *ngFor="let tagBS of minipostBS.tags" class="badge badge-success mx-1 p-1">{{tagBS}}</span>
+                                                                                                
+                                                                                                </div>
+                                                                                                <!--<div class="d-flex justify-content-start">
+                                                                                                <span class="badge badge-success mx-1 p-1"><i class="fas fa-check-circle"></i> {{minipostBS.upvote}}</span>
+                                                                                                <span class="badge badge-danger mx-1 p-1"><i class="fas fa-times-circle"></i> {{minipostBS.downvote}}</span>
+                                                                                                {{minipostBS.votegap}}
+                                                                                                </div>-->
+                                                                                          </div>
+                                                                                          </div>
+                                                                  
+                                                                  
+
+
+                                                                  <a class="btn wc-tab-green mt-3" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                                              <h5><i class="fas fa-user-shield px-2"></i>Add Business</h5>
+                                                                        </a>
+                                                                  
+                                                                        <div class="collapse" id="collapseExample2">
+                                                                              <div class="card card-body">
+                                                                  
+                                                                                          <div class="row">
+                                                                                                <a routerLink="/newbusiness">
+                                                                                                      <button type="button" class="btn wc-dark-gray m-3">New Business</button>
+                                                                                                </a>
+                                                                                          </div>
+
+                                                                                    
+
+
+                                                                                    
+                                                                              </div>
+                                                                              
+                                                                  
+                                                      </div>
+
+                                    </div>
+                              </div>      
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="col-6 mb-5">
+                                    <div class="card">
+                                                <h5 class="card-title wc-dark-gray p-2">Requests</h5>
+                                                <div class="card-body" >
+                                                <div class="container p-0 m-0" style="height: 430px; overflow-y: scroll;">
+                                          
+                                                
+                                                <div  *ngFor="let minipostx of postDataArrayBR">
+                                                      <div  class="card mini-post border border-primary p-1 m-1" style=" overflow-y: hidden;">
+                                                            <p class="mini-post-title  mt-3 mb-0"><i class="fas fa-comment-alt"></i>  {{minipostx.title}}</p>  
+                                                            
+                                                            <p class="my-0 text-secondary"><i class="fas fa-map-marker-alt "></i> {{minipostx.address}}</p>
+                                                            <p class="my-0 text-secondary"><i class="far fa-calendar-alt"></i>{{minipostx.date}}</p>  
+                                                            <p class="my-0 text-secondary"><i class="fas fa-user-circle"></i>{{minipostx.name}}</p> 
+                                                            <a class="text-info">see more..</a>
+                                                            <div class="d-flex justify-content-end">
+                                                            <span *ngFor="let tagx of minipostx.tags" class="badge badge-success mx-1 p-1">{{tagx}}</span>
+                                                            
+                                                            </div>
+         
+                                                      </div>
+                                                      </div>
+                                          
+                                                      
+                                                
+                                    
+                                          
+                                                </div>
+                                                </div>
+                  
+                  
+                  
+                  
+                  
+                  
+                                          </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                
    
             </div>

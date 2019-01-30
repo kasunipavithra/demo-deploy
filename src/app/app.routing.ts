@@ -14,6 +14,8 @@ import { RotaractComponent } from './ui/rotaract/rotaract.component';
 import { ProfileComponent } from './ui/profile/profile.component';
 import { VendorsComponent } from './ui/vendors/vendors.component';
 import { NewBusinessComponent } from './ui/new-business/new-business.component';
+import { VendorProfileComponent } from './ui/vendor-profile/vendor-profile.component';
+import { NewRequestComponent } from './ui/new-request/new-request.component';
 
 const routes: Routes = [
   {
@@ -79,6 +81,16 @@ const routes: Routes = [
   {
     path: 'newbusiness',
     component:  NewBusinessComponent
+  },
+
+  {
+    path: 'vendorprofile/:id',
+    component:  VendorProfileComponent
+  },
+
+  {
+    path: 'newrequest',
+    component:  NewRequestComponent
   },
 
   

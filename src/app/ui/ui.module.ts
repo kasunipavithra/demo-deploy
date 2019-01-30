@@ -31,6 +31,8 @@ import { LoginNwsdbComponent } from './login-nwsdb/login-nwsdb.component';
 import { LoginNonProfitComponent } from './login-non-profit/login-non-profit.component';
 import { RotaractComponent } from './rotaract/rotaract.component';
 import { NewBusinessComponent } from './new-business/new-business.component';
+import { VendorProfileComponent } from './vendor-profile/vendor-profile.component';
+import { NewRequestComponent } from './new-request/new-request.component';
 
 @NgModule({
   imports: [
@@ -51,7 +53,7 @@ import { NewBusinessComponent } from './new-business/new-business.component';
     CrowdmapComponent,
     PostsComponent,
     NewpostComponent, 
-    DropPinComponent, DemopostComponent, SearchPanelLayoutComponent, SearchpanelComponent, VendorsComponent, ProfileComponent, LoginVendorComponent, LoginNwsdbComponent, LoginNonProfitComponent, RotaractComponent, NewBusinessComponent
+    DropPinComponent, DemopostComponent, SearchPanelLayoutComponent, SearchpanelComponent, VendorsComponent, ProfileComponent, LoginVendorComponent, LoginNwsdbComponent, LoginNonProfitComponent, RotaractComponent, NewBusinessComponent, VendorProfileComponent, NewRequestComponent
   ],
 
 
