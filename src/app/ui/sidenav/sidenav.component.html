@@ -1,10 +1,18 @@
 <div id="mySidenav" class="sidenav wc-dark-gray">
   <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
    
-  <a href="#"><img src="../../../assets/profpic.jpeg" class="rounded-circle" style="width:50px" ></a>
-  <a href="#">Kasuni Samarasekara</a>
+  <a href="#"><img src="{{logged_user_image}}" class="rounded-circle" style="width:50px" ></a>
+
+  <a routerLink="/profile/{{encr_mail}}">
+    {{logged_user_name}}
+   </a>
+   
+
+
+
   <hr class="style3">
-  <a href="#"><i class="fas fa-shopping-basket pr-3"></i>Vendors</a>
+  <a routerLink="/dashboard"><i class="fas fa-map-marked-alt pr-3"></i>CrowdMap</a>
+  <a routerLink="/vendors"><i class="fas fa-shopping-basket pr-3"></i>Vendors</a>
   <a href="#"><i class="fas fa-tint pr-3"></i>NWSDB</a>
   <hr class="style3">
   <a href="#"><i class="fas fa-info-circle pr-3"></i>Help</a>
